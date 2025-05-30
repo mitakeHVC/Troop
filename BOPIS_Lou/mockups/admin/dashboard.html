@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理者ダッシュボード - BOPIS</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="header">
+    <h1>BOPIS - 管理者専用</h1>
+    <div>
+      <span style="margin-right: 15px;">ようこそ、管理者様</span>
+      <span style="margin-right: 15px;">テナント: 音楽ライブイベントA</span>
+      <div class="badge badge-warning" id="offline-indicator" style="display: none; margin-right: 15px; padding: 5px 10px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 5px;">
+          <path d="M10.706 3.294A12.545 12.545 0 0 0 8 3C5.259 3 2.723 3.882.663 5.379a.485.485 0 0 0-.048.736.518.518 0 0 0 .668.05A11.448 11.448 0 0 1 8 4c.63 0 1.249.05 1.852.148l.854-.854zM8 6c-1.905 0-3.68.56-5.166 1.526a.48.48 0 0 0-.063.745.525.525 0 0 0 .652.065 8.448 8.448 0 0 1 3.51-1.27L8 6zm2.596 1.404.785-.785c.63.24 1.227.545 1.785.907a.482.482 0 0 1 .063.745.525.525 0 0 1-.652.065 8.462 8.462 0 0 0-1.98-.932zM8 10l.933-.933a6.455 6.455 0 0 1 2.013.637c.285.145.326.524.1.75l-.015.015a.532.532 0 0 1-.611.09A5.478 5.478 0 0 0 8 10zm4.905-4.905.747-.747c.59.3 1.153.645 1.685 1.03a.485.485 0 0 1 .047.737.518.518 0 0 1-.668.05 11.493 11.493 0 0 0-1.811-1.07zM9.02 11.78c.238.14.236.464.04.66l-.707.706a.5.5 0 0 1-.707 0l-.707-.707c-.195-.195-.197-.518.04-.66A1.99 1.99 0 0 1 8 11.5c.374 0 .723.102 1.021.28zm4.355-9.905a.53.53 0 0 1 .75.75l-10.75 10.75a.53.53 0 0 1-.75-.75l10.75-10.75z"/>
+        </svg>
+        オフラインモード
+      </div>
+      <a href="products.html" class="btn" style="margin-right: 10px;">商品管理</a>
+      <a href="staff.html" class="btn" style="margin-right: 10px;">スタッフ管理</a>
+      <a href="lanes.html" class="btn" style="margin-right: 10px;">レーン管理</a>
+      <a href="login.html" class="btn">ログアウト</a>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <h2>管理者ダッシュボード</h2>
+      <div style="display: flex; align-items: center;">
+        <button id="sync-button" class="btn" style="margin-right: 10px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 5px;">
+            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+          </svg>
+          データ同期
+        </button>
+        <button id="export-button" class="btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 5px;">
+            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+          </svg>
+          データエクスポート
+        </button>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col" style="flex: 1;">
+        <div class="card" style="text-align: center; padding: 30px;">
+          <h3 style="margin-top: 0;">本日の注文</h3>
+          <p style="font-size: 36px; font-weight: bold; margin: 10px 0;">38</p>
+          <p>前日比: <span style="color: green;">+12%</span></p>
+        </div>
+      </div>
+      
+      <div class="col" style="flex: 1;">
+        <div class="card" style="text-align: center; padding: 30px;">
+          <h3 style="margin-top: 0;">準備完了</h3>
+          <p style="font-size: 36px; font-weight: bold; margin: 10px 0;">25</p>
+          <p>完了率: <span style="color: green;">65.8%</span></p>
+        </div>
+      </div>
+      
+      <div class="col" style="flex: 1;">
+        <div class="card" style="text-align: center; padding: 30px;">
+          <h3 style="margin-top: 0;">受渡完了</h3>
+          <p style="font-size: 36px; font-weight: bold; margin: 10px 0;">18</p>
+          <p>完了率: <span style="color: orange;">47.4%</span></p>
+        </div>
+      </div>
+      
+      <div class="col" style="flex: 1;">
+        <div class="card" style="text-align: center; padding: 30px;">
+          <h3 style="margin-top: 0;">売上</h3>
+          <p style="font-size: 36px; font-weight: bold; margin: 10px 0;">¥458,500</p>
+          <p>前日比: <span style="color: green;">+15%</span></p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row" style="margin-top: 20px;">
+      <div class="col" style="flex: 2;">
+        <div class="card">
+          <h3>時間枠別注文状況</h3>
+          <div style="height: 300px; background-color: #f9f9f9; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+            <p style="color: #666;">ここにグラフが表示されます</p>
+          </div>
+          <table class="table" style="margin-top: 20px;">
+            <thead>
+              <tr>
+                <th>時間枠</th>
+                <th>注文数</th>
+                <th>準備完了</th>
+                <th>受渡完了</th>
+                <th>完了率</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>10:00-11:00</td>
+                <td>8</td>
+                <td>8</td>
+                <td>8</td>
+                <td><span class="badge badge-success">100%</span></td>
+              </tr>
+              <tr>
+                <td>11:00-12:00</td>
+                <td>10</td>
+                <td>10</td>
+                <td>10</td>
+                <td><span class="badge badge-success">100%</span></td>
+              </tr>
+              <tr>
+                <td>12:00-13:00</td>
+                <td>5</td>
+                <td>5</td>
+                <td>0</td>
+                <td><span class="badge badge-warning">0%</span></td>
+              </tr>
+              <tr style="background-color: #fff3cd;">
+                <td>13:00-14:00</td>
+                <td>15</td>
+                <td>2</td>
+                <td>0</td>
+                <td><span class="badge badge-warning">0%</span></td>
+              </tr>
+              <tr>
+                <td>14:00-15:00</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td><span class="badge badge-secondary">-</span></td>
+              </tr>
+              <tr>
+                <td>15:00-16:00</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td><span class="badge badge-secondary">-</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div class="col" style="flex: 1;">
+        <div class="card">
+          <h3>人気商品ランキング</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>順位</th>
+                <th>商品名</th>
+                <th>販売数</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>ライブロゴTシャツ</td>
+                <td>42点</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>ツアータオル</td>
+                <td>38点</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>アクリルキーホルダー</td>
+                <td>35点</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>ポスター</td>
+                <td>28点</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>パーカー</td>
+                <td>15点</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="card" style="margin-top: 20px;">
+          <h3>在庫アラート</h3>
+          <div class="alert alert-danger">
+            <p><strong>在庫切れ</strong></p>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li>アクリルキーホルダー（デザインA）</li>
+              <li>ツアータオル（ブルー）</li>
+            </ul>
+          </div>
+          <div class="alert alert-warning">
+            <p><strong>在庫残りわずか（5点以下）</strong></p>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li>ライブロゴTシャツ（サイズXL）: 残り3点</li>
+              <li>パーカー（サイズL）: 残り2点</li>
+              <li>ポスター（B2サイズ）: 残り4点</li>
+            </ul>
+          </div>
+          <div style="text-align: right; margin-top: 10px;">
+            <a href="products.html" class="btn">在庫管理へ</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row" style="margin-top: 20px;">
+      <div class="col" style="flex: 1;">
+        <div class="card">
+          <h3>スタッフ状況</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>役割</th>
+                <th>稼働中</th>
+                <th>休憩中</th>
+                <th>合計</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ピッカー</td>
+                <td>4名</td>
+                <td>1名</td>
+                <td>5名</td>
+              </tr>
+              <tr>
+                <td>受付担当</td>
+                <td>3名</td>
+                <td>1名</td>
+                <td>4名</td>
+              </tr>
+              <tr>
+                <td>管理者</td>
+                <td>1名</td>
+                <td>0名</td>
+                <td>1名</td>
+              </tr>
+            </tbody>
+          </table>
+          <div style="text-align: right; margin-top: 10px;">
+            <a href="staff.html" class="btn">スタッフ管理へ</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" style="flex: 1;">
+        <div class="card">
+          <h3>レーン状況</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>レーン</th>
+                <th>担当者</th>
+                <th>待ち件数</th>
+                <th>ステータス</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>レーン1</td>
+                <td>高橋</td>
+                <td>2件</td>
+                <td><span class="badge badge-success">対応中</span></td>
+              </tr>
+              <tr>
+                <td>レーン2</td>
+                <td>鈴木</td>
+                <td>3件</td>
+                <td><span class="badge badge-success">対応中</span></td>
+              </tr>
+              <tr>
+                <td>レーン3</td>
+                <td>渡辺</td>
+                <td>1件</td>
+                <td><span class="badge badge-success">対応中</span></td>
+              </tr>
+              <tr>
+                <td>レーン4</td>
+                <td>-</td>
+                <td>0件</td>
+                <td><span class="badge badge-secondary">未使用</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div style="text-align: right; margin-top: 10px;">
+            <a href="lanes.html" class="btn">レーン管理へ</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card" style="margin-top: 20px;">
+      <h3>リアルタイム在庫管理</h3>
+      <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+        <div style="flex: 1; margin-right: 10px;">
+          <h4 style="font-size: 16px;">EC販売数 vs 入荷在庫 vs お渡し数</h4>
+          <div style="height: 200px; background-color: #f9f9fa; border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+            <p style="color: #666;">ここにグラフが表示されます</p>
+          </div>
+          <div class="alert alert-info" style="margin-bottom: 0; padding: 10px;">
+            <p style="margin: 0; font-size: 14px;">最終同期: 2025/05/30 12:45</p>
+          </div>
+        </div>
+        <div style="flex: 1;">
+          <h4 style="font-size: 16px;">在庫アラート</h4>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>商品名</th>
+                <th>残数</th>
+                <th>状態</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ライブロゴTシャツ (XL)</td>
+                <td>3</td>
+                <td><span class="badge badge-warning">残りわずか</span></td>
+              </tr>
+              <tr>
+                <td>ツアータオル (ブルー)</td>
+                <td>0</td>
+                <td><span class="badge badge-danger">在庫切れ</span></td>
+              </tr>
+              <tr>
+                <td>アクリルキーホルダー (デザインA)</td>
+                <td>0</td>
+                <td><span class="badge badge-danger">在庫切れ</span></td>
+              </tr>
+              <tr>
+                <td>パーカー (サイズL)</td>
+                <td>2</td>
+                <td><span class="badge badge-warning">残りわずか</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div style="text-align: right;">
+        <a href="products.html" class="btn">在庫管理へ</a>
+      </div>
+    </div>
+    
+    <div class="card" style="margin-top: 20px;">
+      <h3>最近の注文</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>注文番号</th>
+            <th>注文日時</th>
+            <th>受取時間枠</th>
+            <th>商品数</th>
+            <th>合計金額</th>
+            <th>ステータス</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ORD-20250530-12345</td>
+            <td>2025/05/30 11:45</td>
+            <td>13:00-14:00</td>
+            <td>3種類 6点</td>
+            <td>¥11,430</td>
+            <td><span class="badge badge-success">準備完了</span></td>
+            <td>
+              <a href="#" class="btn" style="padding: 5px 10px;">詳細</a>
+            </td>
+          </tr>
+          <tr>
+            <td>ORD-20250530-23456</td>
+            <td>2025/05/30 11:50</td>
+            <td>13:00-14:00</td>
+            <td>2種類 2点</td>
+            <td>¥5,500</td>
+            <td><span class="badge badge-success">準備完了</span></td>
+            <td>
+              <a href="#" class="btn" style="padding: 5px 10px;">詳細</a>
+            </td>
+          </tr>
+          <tr>
+            <td>ORD-20250530-34567</td>
+            <td>2025/05/30 11:55</td>
+            <td>14:00-15:00</td>
+            <td>4種類 5点</td>
+            <td>¥12,800</td>
+            <td><span class="badge badge-warning">処理中</span></td>
+            <td>
+              <a href="#" class="btn" style="padding: 5px 10px;">詳細</a>
+            </td>
+          </tr>
+          <tr>
+            <td>ORD-20250530-45678</td>
+            <td>2025/05/30 12:00</td>
+            <td>14:00-15:00</td>
+            <td>1種類 1点</td>
+            <td>¥3,500</td>
+            <td><span class="badge badge-warning">処理中</span></td>
+            <td>
+              <a href="#" class="btn" style="padding: 5px 10px;">詳細</a>
+            </td>
+          </tr>
+          <tr>
+            <td>ORD-20250530-56789</td>
+            <td>2025/05/30 12:05</td>
+            <td>15:00-16:00</td>
+            <td>2種類 3点</td>
+            <td>¥7,200</td>
+            <td><span class="badge badge-info">新規</span></td>
+            <td>
+              <a href="#" class="btn" style="padding: 5px 10px;">詳細</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align: center; margin-top: 20px;">
+        <button class="btn">もっと見る</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <p>&copy; 2025 BOPIS System</p>
+  </div>
+</body>
+</html>

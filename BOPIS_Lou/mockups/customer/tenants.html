@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>テナント選択 - BOPIS</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="header">
+    <h1>BOPIS</h1>
+    <div>
+      <span style="margin-right: 15px;">ようこそ、山田太郎様</span>
+      <a href="login.html" class="btn">ログアウト</a>
+    </div>
+  </div>
+  
+  <div class="container">
+    <h2>テナント選択</h2>
+    <p>参加予定のイベントを選択してください。</p>
+    
+    <div class="row">
+      <div class="col" style="flex: 0 0 calc(33.333% - 20px);">
+        <div class="card">
+          <svg width="100%" height="180" viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" style="border-radius: 4px;">
+            <rect width="300" height="180" fill="#4a90e2"/>
+            <text x="150" y="80" font-family="Arial" font-size="24" fill="white" text-anchor="middle">音楽ライブイベントA</text>
+            <text x="150" y="110" font-family="Arial" font-size="16" fill="white" text-anchor="middle">2025年6月15日 @ 東京ドーム</text>
+            <circle cx="150" cy="40" r="20" fill="white" opacity="0.3"/>
+            <path d="M140,35 L140,45 L155,40 Z" fill="white"/>
+          </svg>
+          <h3>音楽ライブイベントA</h3>
+          <p><strong>日時:</strong> 2025年6月15日</p>
+          <p><strong>会場:</strong> 東京ドーム</p>
+          <p><strong>ステータス:</strong> <span class="badge badge-success">受付中</span></p>
+          <a href="products.html?tenant=1" class="btn btn-primary" style="width: 100%;">選択</a>
+        </div>
+      </div>
+      
+      <div class="col" style="flex: 0 0 calc(33.333% - 20px);">
+        <div class="card">
+          <svg width="100%" height="180" viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" style="border-radius: 4px;">
+            <rect width="300" height="180" fill="#5cb85c"/>
+            <text x="150" y="80" font-family="Arial" font-size="24" fill="white" text-anchor="middle">アニメイベントB</text>
+            <text x="150" y="110" font-family="Arial" font-size="16" fill="white" text-anchor="middle">2025年7月10日 @ 幕張メッセ</text>
+            <rect x="120" y="30" width="60" height="40" fill="white" opacity="0.3"/>
+            <circle cx="150" cy="50" r="10" fill="white" opacity="0.5"/>
+          </svg>
+          <h3>アニメイベントB</h3>
+          <p><strong>日時:</strong> 2025年7月10日</p>
+          <p><strong>会場:</strong> 幕張メッセ</p>
+          <p><strong>ステータス:</strong> <span class="badge badge-success">受付中</span></p>
+          <a href="products.html?tenant=2" class="btn btn-primary" style="width: 100%;">選択</a>
+        </div>
+      </div>
+      
+      <div class="col" style="flex: 0 0 calc(33.333% - 20px);">
+        <div class="card">
+          <svg width="100%" height="180" viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg" style="border-radius: 4px;">
+            <rect width="300" height="180" fill="#f0ad4e"/>
+            <text x="150" y="80" font-family="Arial" font-size="24" fill="white" text-anchor="middle">舞台イベントC</text>
+            <text x="150" y="110" font-family="Arial" font-size="16" fill="white" text-anchor="middle">2025年8月5日 @ 横浜アリーナ</text>
+            <rect x="100" y="30" width="100" height="30" fill="white" opacity="0.3"/>
+          </svg>
+          <h3>舞台イベントC</h3>
+          <p><strong>日時:</strong> 2025年8月5日</p>
+          <p><strong>会場:</strong> 横浜アリーナ</p>
+          <p><strong>ステータス:</strong> <span class="badge badge-warning">準備中</span></p>
+          <a href="#" class="btn btn-secondary" style="width: 100%;" disabled>準備中</a>
+        </div>
+      </div>
+    </div>
+    
+    <h3 style="margin-top: 30px;">過去のイベント</h3>
+    <div class="row">
+      <div class="col" style="flex: 0 0 calc(33.333% - 20px);">
+        <div class="card">
+          <img src="../images/tenant1.jpg" alt="音楽ライブイベントX" style="width: 100%; height: 180px; object-fit: cover; border-radius: 4px; filter: grayscale(100%);">
+          <h3>音楽ライブイベントX</h3>
+          <p><strong>日時:</strong> 2025年4月20日</p>
+          <p><strong>会場:</strong> 大阪城ホール</p>
+          <p><strong>ステータス:</strong> <span class="badge badge-secondary">終了</span></p>
+          <a href="orders.html?tenant=4" class="btn btn-secondary" style="width: 100%;">注文履歴を見る</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <p>&copy; 2025 BOPIS System</p>
+  </div>
+</body>
+</html>

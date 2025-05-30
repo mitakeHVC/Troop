@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>商品管理 - BOPIS</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="header">
+    <h1>BOPIS - 管理者専用</h1>
+    <div>
+      <span style="margin-right: 15px;">ようこそ、管理者様</span>
+      <span style="margin-right: 15px;">テナント: 音楽ライブイベントA</span>
+      <a href="dashboard.html" class="btn" style="margin-right: 10px;">ダッシュボード</a>
+      <a href="staff.html" class="btn" style="margin-right: 10px;">スタッフ管理</a>
+      <a href="lanes.html" class="btn" style="margin-right: 10px;">レーン管理</a>
+      <a href="login.html" class="btn">ログアウト</a>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <h2>商品管理</h2>
+      <button class="btn btn-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 5px;">
+          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg>
+        新規商品追加
+      </button>
+    </div>
+    
+    <div class="card">
+      <div style="display: flex; margin-bottom: 20px;">
+        <div style="flex: 1; margin-right: 10px;">
+          <input type="text" class="form-control" placeholder="商品名、商品IDで検索" style="width: 100%;">
+        </div>
+        <div style="width: 200px; margin-right: 10px;">
+          <select class="form-control">
+            <option>すべてのカテゴリ</option>
+            <option>Tシャツ</option>
+            <option>タオル</option>
+            <option>キーホルダー</option>
+            <option>ポスター</option>
+          </select>
+        </div>
+        <div style="width: 200px; margin-right: 10px;">
+          <select class="form-control">
+            <option>すべてのステータス</option>
+            <option>在庫あり</option>
+            <option>在庫わずか</option>
+            <option>在庫切れ</option>
+          </select>
+        </div>
+        <div>
+          <button class="btn">検索</button>
+        </div>
+      </div>
+      
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width: 80px;">商品画像</th>
+            <th>商品ID</th>
+            <th>商品名</th>
+            <th>カテゴリ</th>
+            <th>価格</th>
+            <th>在庫数</th>
+            <th>ステータス</th>
+            <th style="width: 150px;">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <img src="../images/product1.jpg" alt="ライブロゴTシャツ" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+            </td>
+            <td>PRD-001-S</td>
+            <td>ライブロゴTシャツ (S)</td>
+            <td>Tシャツ</td>
+            <td>¥3,500</td>
+            <td>15</td>
+            <td><span class="badge badge-success">在庫あり</span></td>
+            <td>
+              <button class="btn" style="padding: 5px 10px; margin-right: 5px;">編集</button>
+              <button class="btn btn-danger" style="padding: 5px 10px;">削除</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <img src="../images/product1.jpg" alt="ライブロゴTシャツ" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+            </td>
+            <td>PRD-001-M</td>
+            <td>ライブロゴTシャツ (M)</td>
+            <td>Tシャツ</td>
+            <td>¥3,500</td>
+            <td>8</td>
+            <td><span class="badge badge-success">在庫あり</span></td>
+            <td>
+              <button class="btn" style="padding: 5px 10px; margin-right: 5px;">編集</button>
+              <button class="btn btn-danger" style="padding: 5px 10px;">削除</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <img src="../images/product1.jpg" alt="ライブロゴTシャツ" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+            </td>
+            <td>PRD-001-L</td>
+            <td>ライブロゴTシャツ (L)</td>
+            <td>Tシャツ</td>
+            <td>¥3,500</td>
+            <td>12</td>
+            <td><span class="badge badge-success">在庫あり</span></td>
+            <td>
+              <button class="btn" style="padding: 5px 10px; margin-right: 5px;">編集</button>
+              <button class="btn btn-danger" style="padding: 5px 10px;">削除</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <img src="../images/product1.jpg" alt="ライブロゴTシャツ" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+            </td>
+            <td>PRD-001-XL</td>
+            <td>ライブロゴTシャツ (XL)</td>
+            <td>Tシャツ</td>
+            <td>¥3,500</td>
+            <td>3</td>
+            <td><span class="badge badge-warning">在庫わずか</span></td>
+            <td>
+              <button class="btn" style="padding: 5px 10px; margin-right: 5px;">編集</button>
+              <button class="btn btn-danger" style="padding: 5px 10px;">削除</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <img src="../images/product2.jpg" alt="ツアータオル" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+            </td>
+            <td>PRD-002-RED</td>
+            <td>ツアータオル (レッド)</td>
+            <td>タオル</td>
+            <td>¥2,000</td>
+            <td>25</td>
+            <td><span class="badge badge-success">在庫あり</span></td>
+            <td>
+              <button class="btn" style="padding: 5px 10px; margin-right: 5px;">編集</button>
+              <button class="btn btn-danger" style="padding: 5px 10px;">削除</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <img src="../images/product2.jpg" alt="ツアータオル" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+            </td>
+            <td>PRD-002-BLUE</td>
+            <td>ツアータオル (ブルー)</td>
+            <td>タオル</td>
+            <td>¥2,000</td>
+            <td>0</td>
+            <td><span class="badge badge-danger">在庫切れ</span></td>
+            <td>
+              <button class="btn" style="padding: 5px 10px; margin-right: 5px;">編集</button>
+              <button class="btn btn-danger" style="padding: 5px 10px;">削除</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <img src="../images/product3.jpg" alt="アクリルキーホルダー" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+            </td>
+            <td>PRD-003-A</td>
+            <td>アクリルキーホルダー (デザインA)</td>
+            <td>キーホルダー</td>
+            <td>¥1,200</td>
+            <td>0</td>
+            <td><span class="badge badge-danger">在庫切れ</span></td>
+            <td>
+              <button class="btn" style="padding: 5px 10px; margin-right: 5px;">編集</button>
+              <button class="btn btn-danger" style="padding: 5px 10px;">削除</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <img src="../images/product3.jpg" alt="アクリルキーホルダー" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+            </td>
+            <td>PRD-003-B</td>
+            <td>アクリルキーホルダー (デザインB)</td>
+            <td>キーホルダー</td>
+            <td>¥1,200</td>
+            <td>18</td>
+            <td><span class="badge badge-success">在庫あり</span></td>
+            <td>
+              <button class="btn" style="padding: 5px 10px; margin-right: 5px;">編集</button>
+              <button class="btn btn-danger" style="padding: 5px 10px;">削除</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+        <div>
+          <span>1-8 / 15件</span>
+        </div>
+        <div>
+          <button class="btn" disabled>&lt;</button>
+          <button class="btn btn-primary" style="margin: 0 5px;">1</button>
+          <button class="btn" style="margin: 0 5px;">2</button>
+          <button class="btn">&gt;</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card" style="margin-top: 20px;">
+      <h3>商品編集</h3>
+      <form>
+        <div class="row">
+          <div class="col" style="flex: 1;">
+            <div class="form-group">
+              <label for="product-id">商品ID</label>
+              <input type="text" id="product-id" class="form-control" value="PRD-001-M">
+            </div>
+            <div class="form-group">
+              <label for="product-name">商品名</label>
+              <input type="text" id="product-name" class="form-control" value="ライブロゴTシャツ (M)">
+            </div>
+            <div class="form-group">
+              <label for="product-category">カテゴリ</label>
+              <select id="product-category" class="form-control">
+                <option>Tシャツ</option>
+                <option>タオル</option>
+                <option>キーホルダー</option>
+                <option>ポスター</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="product-price">価格</label>
+              <input type="number" id="product-price" class="form-control" value="3500">
+            </div>
+          </div>
+          
+          <div class="col" style="flex: 1;">
+            <div class="form-group">
+              <label for="product-stock">在庫数</label>
+              <input type="number" id="product-stock" class="form-control" value="8">
+            </div>
+            <div class="form-group">
+              <label for="product-location">在庫場所</label>
+              <input type="text" id="product-location" class="form-control" value="棚A-3-2">
+            </div>
+            <div class="form-group">
+              <label for="product-description">商品説明</label>
+              <textarea id="product-description" class="form-control" rows="4">2025年ツアーの公式Tシャツです。フロントにはツアーロゴ、バックにはツアー日程が印刷されています。高品質の綿素材を使用しており、着心地が良く、長く愛用いただけます。</textarea>
+            </div>
+          </div>
+          
+          <div class="col" style="flex: 1;">
+            <div class="form-group">
+              <label for="product-image">商品画像</label>
+              <div style="border: 1px dashed #ddd; padding: 10px; text-align: center; margin-bottom: 10px;">
+                <img src="../images/product1.jpg" alt="ライブロゴTシャツ" style="max-width: 100%; height: auto; max-height: 200px;">
+              </div>
+              <input type="file" id="product-image" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="product-status">ステータス</label>
+              <select id="product-status" class="form-control">
+                <option>公開</option>
+                <option>非公開</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px;">
+          <button type="button" class="btn" style="margin-right: 10px;">キャンセル</button>
+          <button type="submit" class="btn btn-primary">保存</button>
+        </div>
+      </form>
+    </div>
+    
+    <div class="card" style="margin-top: 20px;">
+      <h3>在庫一括更新</h3>
+      <div style="margin-bottom: 20px;">
+        <button class="btn" style="margin-right: 10px;">CSVエクスポート</button>
+        <button class="btn">CSVインポート</button>
+      </div>
+      <div class="alert alert-info">
+        <p>CSVファイルを使用して、商品の在庫を一括で更新できます。「CSVエクスポート」ボタンをクリックして現在の在庫状況をダウンロードし、編集後に「CSVインポート」ボタンからアップロードしてください。</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <p>&copy; 2025 BOPIS System</p>
+  </div>
+</body>
+</html>

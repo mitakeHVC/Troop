@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カート - BOPIS</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="header">
+    <h1>BOPIS - 音楽ライブイベントA</h1>
+    <div>
+      <a href="orders.html" class="btn" style="margin-right: 10px;">注文履歴</a>
+      <a href="tenants.html" class="btn" style="margin-right: 10px;">テナント選択</a>
+      <a href="login.html" class="btn">ログアウト</a>
+    </div>
+  </div>
+  
+  <div class="container">
+    <h2>ショッピングカート</h2>
+    
+    <div class="alert alert-info">
+      <p>受取時間枠: <strong>2025年6月15日 13:00-14:00</strong></p>
+    </div>
+    
+    <div class="row">
+      <div class="col" style="flex: 3;">
+        <div class="card">
+          <table class="table">
+            <thead>
+              <tr>
+                <th style="width: 100px;">商品</th>
+                <th>詳細</th>
+                <th style="width: 100px;">単価</th>
+                <th style="width: 150px;">数量</th>
+                <th style="width: 100px;">小計</th>
+                <th style="width: 80px;">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" style="border-radius: 4px;">
+                    <rect width="80" height="80" fill="#4a90e2"/>
+                    <text x="40" y="40" font-family="Arial" font-size="10" fill="white" text-anchor="middle">ライブロゴTシャツ</text>
+                    <rect x="25" y="20" width="30" height="20" fill="white" opacity="0.3"/>
+                  </svg>
+                </td>
+                <td>
+                  <h4 style="margin: 0 0 5px 0;">ライブロゴTシャツ</h4>
+                  <p style="margin: 0; font-size: 14px; color: #666;">サイズ: M</p>
+                </td>
+                <td>¥3,500</td>
+                <td>
+                  <div style="display: flex; align-items: center;">
+                    <button class="btn" style="padding: 5px 10px;">-</button>
+                    <input type="number" value="1" min="1" max="10" style="width: 50px; text-align: center; margin: 0 5px;">
+                    <button class="btn" style="padding: 5px 10px;">+</button>
+                  </div>
+                </td>
+                <td>¥3,500</td>
+                <td>
+                  <button class="btn btn-danger" style="padding: 5px 10px;">削除</button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" style="border-radius: 4px;">
+                    <rect width="80" height="80" fill="#5cb85c"/>
+                    <text x="40" y="40" font-family="Arial" font-size="10" fill="white" text-anchor="middle">ツアータオル</text>
+                    <rect x="20" y="20" width="40" height="15" fill="white" opacity="0.3"/>
+                  </svg>
+                </td>
+                <td>
+                  <h4 style="margin: 0 0 5px 0;">ツアータオル</h4>
+                </td>
+                <td>¥2,000</td>
+                <td>
+                  <div style="display: flex; align-items: center;">
+                    <button class="btn" style="padding: 5px 10px;">-</button>
+                    <input type="number" value="2" min="1" max="10" style="width: 50px; text-align: center; margin: 0 5px;">
+                    <button class="btn" style="padding: 5px 10px;">+</button>
+                  </div>
+                </td>
+                <td>¥4,000</td>
+                <td>
+                  <button class="btn btn-danger" style="padding: 5px 10px;">削除</button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" style="border-radius: 4px;">
+                    <rect width="80" height="80" fill="#f0ad4e"/>
+                    <text x="40" y="45" font-family="Arial" font-size="8" fill="white" text-anchor="middle">アクリルキーホルダー</text>
+                    <circle cx="40" cy="25" r="10" fill="white" opacity="0.3"/>
+                  </svg>
+                </td>
+                <td>
+                  <h4 style="margin: 0 0 5px 0;">アクリルキーホルダー</h4>
+                </td>
+                <td>¥1,200</td>
+                <td>
+                  <div style="display: flex; align-items: center;">
+                    <button class="btn" style="padding: 5px 10px;">-</button>
+                    <input type="number" value="3" min="1" max="10" style="width: 50px; text-align: center; margin: 0 5px;">
+                    <button class="btn" style="padding: 5px 10px;">+</button>
+                  </div>
+                </td>
+                <td>¥3,600</td>
+                <td>
+                  <button class="btn btn-danger" style="padding: 5px 10px;">削除</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+            <a href="products.html" class="btn">&lt; 買い物を続ける</a>
+            <button class="btn btn-danger">カートを空にする</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" style="flex: 1;">
+        <div class="card">
+          <h3>注文サマリー</h3>
+          <table style="width: 100%; margin-bottom: 20px;">
+            <tr>
+              <td>小計</td>
+              <td style="text-align: right;">¥11,100</td>
+            </tr>
+            <tr>
+              <td>システム利用料</td>
+              <td style="text-align: right;">¥330</td>
+            </tr>
+            <tr style="font-weight: bold; font-size: 18px;">
+              <td>合計</td>
+              <td style="text-align: right;">¥11,430</td>
+            </tr>
+          </table>
+          
+          <a href="checkout.html" class="btn btn-primary" style="width: 100%; padding: 15px; font-size: 16px;">チェックアウトへ進む</a>
+          
+          <div style="margin-top: 20px; font-size: 14px;">
+            <p>※受取時間枠: 2025年6月15日 13:00-14:00</p>
+            <p>※受取時間枠の変更はチェックアウト時に行えます。</p>
+          </div>
+        </div>
+        
+        <div class="card" style="margin-top: 20px;">
+          <h3>クーポンコード</h3>
+          <div style="display: flex; margin-bottom: 10px;">
+            <input type="text" class="form-control" placeholder="クーポンコードを入力" style="flex: 1; margin-right: 10px;">
+            <button class="btn">適用</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <p>&copy; 2025 BOPIS System</p>
+  </div>
+</body>
+</html>

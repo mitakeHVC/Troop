@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>準備完了 - BOPIS</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="header">
+    <h1>BOPIS - ピッカー専用</h1>
+    <div>
+      <span style="margin-right: 15px;">ようこそ、佐藤ピッカー様</span>
+      <span style="margin-right: 15px;">テナント: 音楽ライブイベントA</span>
+      <a href="dashboard.html" class="btn" style="margin-right: 10px;">ダッシュボード</a>
+      <a href="login.html" class="btn">ログアウト</a>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div style="margin-bottom: 20px;">
+      <a href="dashboard.html" class="btn">&lt; ダッシュボードに戻る</a>
+    </div>
+    
+    <div class="alert alert-success" style="text-align: center; padding: 30px;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" viewBox="0 0 16 16" style="margin-bottom: 15px;">
+        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+      </svg>
+      <h2 style="margin-top: 0;">準備完了</h2>
+      <p style="font-size: 18px;">注文 ORD-20250530-12345 の商品準備が完了しました。</p>
+      <p>受付担当に通知が送信されました。</p>
+    </div>
+    
+    <div class="card">
+      <h3>注文サマリー</h3>
+      <div class="row">
+        <div class="col" style="flex: 1;">
+          <table class="table">
+            <tr>
+              <th style="width: 30%;">注文番号</th>
+              <td>ORD-20250530-12345</td>
+            </tr>
+            <tr>
+              <th>受取時間枠</th>
+              <td>2025/06/15 13:00-14:00</td>
+            </tr>
+            <tr>
+              <th>商品点数</th>
+              <td>3種類 6点</td>
+            </tr>
+            <tr>
+              <th>合計金額</th>
+              <td>¥11,430 (税込)</td>
+            </tr>
+          </table>
+        </div>
+        
+        <div class="col" style="flex: 1;">
+          <table class="table">
+            <tr>
+              <th style="width: 30%;">ステータス</th>
+              <td><span class="badge badge-success">準備完了</span></td>
+            </tr>
+            <tr>
+              <th>処理開始時間</th>
+              <td>2025/05/30 12:05</td>
+            </tr>
+            <tr>
+              <th>処理完了時間</th>
+              <td>2025/05/30 12:12</td>
+            </tr>
+            <tr>
+              <th>処理時間</th>
+              <td>7分</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card" style="margin-top: 20px;">
+      <h3>準備完了商品</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width: 80px;">商品</th>
+            <th>商品名</th>
+            <th style="width: 80px;">数量</th>
+            <th style="width: 120px;">ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <img src="../images/product1.jpg" alt="ライブロゴTシャツ" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+            </td>
+            <td>
+              <h4 style="margin: 0 0 5px 0;">ライブロゴTシャツ</h4>
+              <p style="margin: 0; font-size: 14px; color: #666;">サイズ: M</p>
+            </td>
+            <td>1</td>
+            <td><span class="badge badge-success">ピッキング済</span></td>
+          </tr>
+          <tr>
+            <td>
+              <img src="../images/product2.jpg" alt="ツアータオル" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+            </td>
+            <td>
+              <h4 style="margin: 0 0 5px 0;">ツアータオル</h4>
+            </td>
+            <td>2</td>
+            <td><span class="badge badge-success">ピッキング済</span></td>
+          </tr>
+          <tr>
+            <td>
+              <img src="../images/product3.jpg" alt="アクリルキーホルダー（別デザイン）" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+            </td>
+            <td>
+              <h4 style="margin: 0 0 5px 0;">アクリルキーホルダー（別デザイン）</h4>
+              <p style="margin: 0; font-size: 14px; color: #666;">※在庫切れのため代替品</p>
+            </td>
+            <td>3</td>
+            <td><span class="badge badge-warning">代替品</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="card" style="margin-top: 20px;">
+      <h3>梱包情報</h3>
+      <div class="row">
+        <div class="col" style="flex: 1;">
+          <table class="table">
+            <tr>
+              <th style="width: 30%;">梱包タイプ</th>
+              <td>紙袋 (中)</td>
+            </tr>
+            <tr>
+              <th>梱包備考</th>
+              <td>Tシャツは折り畳まずに梱包</td>
+            </tr>
+            <tr>
+              <th>割り当てレーン</th>
+              <td>レーン2</td>
+            </tr>
+          </table>
+        </div>
+        
+        <div class="col" style="flex: 1;">
+          <div style="border: 2px dashed #ddd; padding: 15px; text-align: center;">
+            <h3 style="margin-top: 0;">ORD-20250530-12345</h3>
+            <p>受取時間枠: 2025/06/15 13:00-14:00</p>
+            <p>レーン: 2</p>
+            <p>商品点数: 3種類 6点</p>
+            <p>ピッカー: 佐藤</p>
+            <button class="btn">ラベル再印刷</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card" style="margin-top: 20px;">
+      <h3>受付担当への引き渡し</h3>
+      <div class="form-group">
+        <label for="handover-note">引き渡し備考</label>
+        <textarea id="handover-note" class="form-control" rows="3">アクリルキーホルダーは在庫切れのため、別デザインに変更しています。お客様への説明をお願いします。</textarea>
+      </div>
+      
+      <div class="form-group">
+        <label for="handover-location">保管場所</label>
+        <select id="handover-location" class="form-control">
+          <option>選択してください</option>
+          <option selected>レーン2棚</option>
+          <option>バックヤード一時保管エリア</option>
+          <option>受付カウンター</option>
+        </select>
+      </div>
+    </div>
+    
+    <div style="margin-top: 30px; text-align: center;">
+      <a href="dashboard.html" class="btn btn-primary" style="padding: 15px 30px; font-size: 16px;">次の注文を処理する</a>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <p>&copy; 2025 BOPIS System</p>
+  </div>
+</body>
+</html>

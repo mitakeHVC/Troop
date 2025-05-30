@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スタッフ管理 - BOPIS</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="header">
+    <h1>BOPIS - 管理者専用</h1>
+    <div>
+      <span style="margin-right: 15px;">ようこそ、管理者様</span>
+      <span style="margin-right: 15px;">テナント: 音楽ライブイベントA</span>
+      <a href="dashboard.html" class="btn" style="margin-right: 10px;">ダッシュボード</a>
+      <a href="products.html" class="btn" style="margin-right: 10px;">商品管理</a>
+      <a href="lanes.html" class="btn" style="margin-right: 10px;">レーン管理</a>
+      <a href="login.html" class="btn">ログアウト</a>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <h2>スタッフ管理</h2>
+      <button class="btn btn-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 5px;">
+          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg>
+        新規スタッフ追加
+      </button>
+    </div>
+    
+    <div class="card">
+      <div style="display: flex; margin-bottom: 20px;">
+        <div style="flex: 1; margin-right: 10px;">
+          <input type="text" class="form-control" placeholder="名前、スタッフIDで検索" style="width: 100%;">
+        </div>
+        <div style="width: 200px; margin-right: 10px;">
+          <select class="form-control">
+            <option>すべての役割</option>
+            <option>ピッカー</option>
+            <option>受付担当</option>
+            <option>管理者</option>
+          </select>
+        </div>
+        <div style="width: 200px; margin-right: 10px;">
+          <select class="form-control">
+            <option>すべてのステータス</option>
+            <option>対応可能</option>
+            <option>休憩中</option>
+            <option>退勤</option>
+          </select>
+        </div>
+        <div>
+          <button class="btn">検索</button>
+        </div>
+      </div>
+      
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width: 80px;">写真</th>
+            <th>スタッフID</th>
+            <th>名前</th>
+            <th>役割</th>
+            <th>担当レーン</th>
+            <th>ステータス</th>
+            <th>本日の処理数</th>
+            <th style="width: 150px;">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="#4a90e2" viewBox="0 0 16 16">
+                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+              </svg>
+            </td>
+            <td>P12345</td>
+            <td>佐藤 太郎</td>
+            <td>ピッカー</td>
+            <td>-</td>
+            <td><span class="badge badge-success">対応可能</span></td>
+            <td>12件</td>
+            <td>
+              <button class="btn" style="padding: 5px 10px; margin-right: 5px;">編集</button>
+              <button class="btn btn-danger" style="padding: 5px 10px;">削除</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="#4a90e2" viewBox="0 0 16 16">
+                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+              </svg>
+            </td>
+            <td>P23456</td>
+            <td>田中 次郎</td>
+            <td>ピッカー</td>
+            <td>-</td>
+            <td><span class="badge badge-warning">休憩中</span></td>
+            <td>8件</td>
+            <td>
+              <button class="btn" style="padding: 5px 10px; margin-right: 5px;">編集</button>
+              <button class="btn btn-danger" style="padding: 5px 10px;">削除</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="#4a90e2" viewBox="0 0 16 16">
+                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+              </svg>
+            </td>
+            <td>P34567</td>
+            <td>山本 三郎</td>
+            <td>ピッカー</td>
+            <td>-</td>
+            <td><span class="badge badge-success">対応可能</span></td>
+            <td>10件</td>
+            <td>
+              <button class="btn" style="padding: 5px 10px; margin-right: 5px;">編集</button>
+              <button class="btn btn-danger" style="padding: 5px 10px;">削除</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="#4a90e2" viewBox="0 0 16 16">
+                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+              </svg>
+            </td>
+            <td>C54321</td>
+            <td>鈴木 花子</td>
+            <td>受付担当</td>
+            <td>レーン2</td>
+            <td><span class="badge badge-success">対応可能</span></td>
+            <td>8件</td>
+            <td>
+              <button class="btn" style="padding: 5px 10px; margin-right: 5px;">編集</button>
+              <button class="btn btn-danger" style="padding: 5px 10px;">削除</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="#4a90e2" viewBox="0 0 16 16">
+                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+              </svg>
+            </td>
+            <td>C65432</td>
+            <td>高橋 雅子</td>
+            <td>受付担当</td>
+            <td>レーン1</td>
+            <td><span class="badge badge-success">対応可能</span></td>
+            <td>6件</td>
+            <td>
+              <button class="btn" style="padding: 5px 10px; margin-right: 5px;">編集</button>
+              <button class="btn btn-danger" style="padding: 5px 10px;">削除</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="#4a90e2" viewBox="0 0 16 16">
+                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+              </svg>
+            </td>
+            <td>C76543</td>
+            <td>渡辺 健太</td>
+            <td>受付担当</td>
+            <td>レーン3</td>
+            <td><span class="badge badge-success">対応可能</span></td>
+            <td>5件</td>
+            <td>
+              <button class="btn" style="padding: 5px 10px; margin-right: 5px;">編集</button>
+              <button class="btn btn-danger" style="padding: 5px 10px;">削除</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="#4a90e2" viewBox="0 0 16 16">
+                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+              </svg>
+            </td>
+            <td>A98765</td>
+            <td>伊藤 誠</td>
+            <td>管理者</td>
+            <td>-</td>
+            <td><span class="badge badge-success">対応可能</span></td>
+            <td>-</td>
+            <td>
+              <button class="btn" style="padding: 5px 10px; margin-right: 5px;">編集</button>
+              <button class="btn btn-danger" style="padding: 5px 10px;">削除</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+        <div>
+          <span>1-7 / 10件</span>
+        </div>
+        <div>
+          <button class="btn" disabled>&lt;</button>
+          <button class="btn btn-primary" style="margin: 0 5px;">1</button>
+          <button class="btn" style="margin: 0 5px;">2</button>
+          <button class="btn">&gt;</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card" style="margin-top: 20px;">
+      <h3>スタッフ編集</h3>
+      <form>
+        <div class="row">
+          <div class="col" style="flex: 1;">
+            <div class="form-group">
+              <label for="staff-id">スタッフID</label>
+              <input type="text" id="staff-id" class="form-control" value="C54321">
+            </div>
+            <div class="form-group">
+              <label for="staff-name">名前</label>
+              <input type="text" id="staff-name" class="form-control" value="鈴木 花子">
+            </div>
+            <div class="form-group">
+              <label for="staff-email">メールアドレス</label>
+              <input type="email" id="staff-email" class="form-control" value="suzuki@example.com">
+            </div>
+            <div class="form-group">
+              <label for="staff-phone">電話番号</label>
+              <input type="tel" id="staff-phone" class="form-control" value="090-9876-5432">
+            </div>
+          </div>
+          
+          <div class="col" style="flex: 1;">
+            <div class="form-group">
+              <label for="staff-role">役割</label>
+              <select id="staff-role" class="form-control">
+                <option>ピッカー</option>
+                <option selected>受付担当</option>
+                <option>管理者</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="staff-lane">担当レーン</label>
+              <select id="staff-lane" class="form-control">
+                <option>-</option>
+                <option>レーン1</option>
+                <option selected>レーン2</option>
+                <option>レーン3</option>
+                <option>レーン4</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="staff-status">ステータス</label>
+              <select id="staff-status" class="form-control">
+                <option selected>対応可能</option>
+                <option>休憩中</option>
+                <option>退勤</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="staff-password">パスワードリセット</label>
+              <div style="display: flex;">
+                <input type="password" id="staff-password" class="form-control" style="margin-right: 10px;">
+                <button type="button" class="btn">リセット</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col" style="flex: 1;">
+            <div class="form-group">
+              <label for="staff-photo">スタッフ写真</label>
+              <div style="border: 1px dashed #ddd; padding: 20px; text-align: center; margin-bottom: 10px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="#4a90e2" viewBox="0 0 16 16">
+                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                </svg>
+              </div>
+              <input type="file" id="staff-photo" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="staff-notes">備考</label>
+              <textarea id="staff-notes" class="form-control" rows="4">受付担当として2年の経験あり。顧客対応が得意。</textarea>
+            </div>
+          </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px;">
+          <button type="button" class="btn" style="margin-right: 10px;">キャンセル</button>
+          <button type="submit" class="btn btn-primary">保存</button>
+        </div>
+      </form>
+    </div>
+    
+    <div class="card" style="margin-top: 20px;">
+      <h3>シフト管理</h3>
+      <div style="margin-bottom: 20px;">
+        <button class="btn" style="margin-right: 10px;">シフト表エクスポート</button>
+        <button class="btn">シフト表インポート</button>
+      </div>
+      <div class="alert alert-info">
+        <p>シフト表をCSVファイルでエクスポート・インポートできます。「シフト表エクスポート」ボタンをクリックして現在のシフト表をダウンロードし、編集後に「シフト表インポート」ボタンからアップロードしてください。</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <p>&copy; 2025 BOPIS System</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>商品一覧 - BOPIS</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="header">
+    <h1>BOPIS - 音楽ライブイベントA</h1>
+    <div>
+      <a href="cart.html" class="btn notification" style="margin-right: 10px;">
+        カート
+        <span class="notification-badge">3</span>
+      </a>
+      <a href="orders.html" class="btn" style="margin-right: 10px;">注文履歴</a>
+      <a href="tenants.html" class="btn" style="margin-right: 10px;">テナント選択</a>
+      <a href="login.html" class="btn">ログアウト</a>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <h2>商品一覧</h2>
+      <div>
+        <span style="margin-right: 10px;">受取時間枠: 2025年6月15日 13:00-14:00</span>
+        <a href="checkout.html" class="btn btn-primary">チェックアウトへ進む</a>
+      </div>
+    </div>
+    
+    <div style="display: flex; margin-bottom: 20px;">
+      <div style="flex: 1; margin-right: 10px;">
+        <input type="text" class="form-control" placeholder="商品を検索" style="width: 100%;">
+      </div>
+      <div style="width: 200px; margin-right: 10px;">
+        <select class="form-control">
+          <option>すべてのカテゴリ</option>
+          <option>Tシャツ</option>
+          <option>タオル</option>
+          <option>キーホルダー</option>
+          <option>ポスター</option>
+        </select>
+      </div>
+      <div>
+        <button class="btn">検索</button>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col" style="flex: 0 0 calc(25% - 20px);">
+        <div class="card">
+          <svg width="100%" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" style="border-radius: 4px;">
+            <rect width="300" height="200" fill="#4a90e2"/>
+            <text x="150" y="100" font-family="Arial" font-size="24" fill="white" text-anchor="middle">ライブロゴTシャツ</text>
+            <text x="150" y="130" font-family="Arial" font-size="16" fill="white" text-anchor="middle">2025ツアー公式グッズ</text>
+            <rect x="100" y="50" width="100" height="30" fill="white" opacity="0.3"/>
+          </svg>
+          <h3>ライブロゴTシャツ</h3>
+          <p style="font-size: 18px; font-weight: bold;">¥3,500</p>
+          <p>2025年ツアーの公式Tシャツです。</p>
+          <p>サイズ: S, M, L, XL</p>
+          <div style="display: flex; justify-content: space-between;">
+            <a href="product-detail.html?id=1" class="btn" style="width: 48%;">詳細</a>
+            <button class="btn btn-primary" style="width: 48%;">カートに追加</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" style="flex: 0 0 calc(25% - 20px);">
+        <div class="card">
+          <svg width="100%" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" style="border-radius: 4px;">
+            <rect width="300" height="200" fill="#5cb85c"/>
+            <text x="150" y="100" font-family="Arial" font-size="24" fill="white" text-anchor="middle">ツアータオル</text>
+            <text x="150" y="130" font-family="Arial" font-size="16" fill="white" text-anchor="middle">ライブの必須アイテム</text>
+            <rect x="75" y="50" width="150" height="30" fill="white" opacity="0.3"/>
+          </svg>
+          <h3>ツアータオル</h3>
+          <p style="font-size: 18px; font-weight: bold;">¥2,000</p>
+          <p>ライブで盛り上がるための必須アイテム！</p>
+          <div style="display: flex; justify-content: space-between;">
+            <a href="product-detail.html?id=2" class="btn" style="width: 48%;">詳細</a>
+            <button class="btn btn-primary" style="width: 48%;">カートに追加</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" style="flex: 0 0 calc(25% - 20px);">
+        <div class="card">
+          <svg width="100%" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" style="border-radius: 4px;">
+            <rect width="300" height="200" fill="#f0ad4e"/>
+            <text x="150" y="100" font-family="Arial" font-size="20" fill="white" text-anchor="middle">アクリルキーホルダー</text>
+            <text x="150" y="130" font-family="Arial" font-size="16" fill="white" text-anchor="middle">メンバー別デザイン</text>
+            <circle cx="150" cy="50" r="20" fill="white" opacity="0.3"/>
+          </svg>
+          <h3>アクリルキーホルダー</h3>
+          <p style="font-size: 18px; font-weight: bold;">¥1,200</p>
+          <p>メンバー別デザインのアクリルキーホルダー。</p>
+          <div style="display: flex; justify-content: space-between;">
+            <a href="product-detail.html?id=3" class="btn" style="width: 48%;">詳細</a>
+            <button class="btn btn-primary" style="width: 48%;">カートに追加</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" style="flex: 0 0 calc(25% - 20px);">
+        <div class="card">
+          <svg width="100%" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" style="border-radius: 4px;">
+            <rect width="300" height="200" fill="#d9534f"/>
+            <text x="150" y="100" font-family="Arial" font-size="24" fill="white" text-anchor="middle">ポスター</text>
+            <text x="150" y="130" font-family="Arial" font-size="16" fill="white" text-anchor="middle">A2サイズ</text>
+            <rect x="75" y="40" width="150" height="40" fill="white" opacity="0.2"/>
+          </svg>
+          <h3>ポスター</h3>
+          <p style="font-size: 18px; font-weight: bold;">¥1,500</p>
+          <p>A2サイズの高品質ポスター。</p>
+          <div style="display: flex; justify-content: space-between;">
+            <a href="product-detail.html?id=4" class="btn" style="width: 48%;">詳細</a>
+            <button class="btn btn-primary" style="width: 48%;">カートに追加</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row" style="margin-top: 20px;">
+      <div class="col" style="flex: 0 0 calc(25% - 20px);">
+        <div class="card">
+          <img src="../images/product1.jpg" alt="パーカー" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px;">
+          <h3>パーカー</h3>
+          <p style="font-size: 18px; font-weight: bold;">¥6,500</p>
+          <p>ロゴ入りの高品質パーカー。</p>
+          <p>サイズ: S, M, L, XL</p>
+          <div style="display: flex; justify-content: space-between;">
+            <a href="product-detail.html?id=5" class="btn" style="width: 48%;">詳細</a>
+            <button class="btn btn-primary" style="width: 48%;">カートに追加</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" style="flex: 0 0 calc(25% - 20px);">
+        <div class="card">
+          <img src="../images/product2.jpg" alt="マフラータオル" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px;">
+          <h3>マフラータオル</h3>
+          <p style="font-size: 18px; font-weight: bold;">¥2,500</p>
+          <p>長めのマフラータイプのタオル。</p>
+          <div style="display: flex; justify-content: space-between;">
+            <a href="product-detail.html?id=6" class="btn" style="width: 48%;">詳細</a>
+            <button class="btn btn-primary" style="width: 48%;">カートに追加</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" style="flex: 0 0 calc(25% - 20px);">
+        <div class="card">
+          <img src="../images/product3.jpg" alt="缶バッジセット" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px;">
+          <h3>缶バッジセット</h3>
+          <p style="font-size: 18px; font-weight: bold;">¥1,000</p>
+          <p>5個セットの缶バッジ。</p>
+          <div style="display: flex; justify-content: space-between;">
+            <a href="product-detail.html?id=7" class="btn" style="width: 48%;">詳細</a>
+            <button class="btn btn-primary" style="width: 48%;">カートに追加</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" style="flex: 0 0 calc(25% - 20px);">
+        <div class="card">
+          <img src="../images/product3.jpg" alt="ペンライト" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px;">
+          <h3>ペンライト</h3>
+          <p style="font-size: 18px; font-weight: bold;">¥3,800</p>
+          <p>15色に変化するLEDペンライト。</p>
+          <div style="display: flex; justify-content: space-between;">
+            <a href="product-detail.html?id=8" class="btn" style="width: 48%;">詳細</a>
+            <button class="btn btn-primary" style="width: 48%;">カートに追加</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div style="margin-top: 20px; text-align: center;">
+      <button class="btn">もっと見る</button>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <p>&copy; 2025 BOPIS System</p>
+  </div>
+</body>
+</html>

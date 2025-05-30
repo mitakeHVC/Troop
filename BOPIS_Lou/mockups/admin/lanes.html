@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>レーン管理 - BOPIS</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="header">
+    <h1>BOPIS - 管理者専用</h1>
+    <div>
+      <span style="margin-right: 15px;">ようこそ、管理者様</span>
+      <span style="margin-right: 15px;">テナント: 音楽ライブイベントA</span>
+      <a href="dashboard.html" class="btn" style="margin-right: 10px;">ダッシュボード</a>
+      <a href="products.html" class="btn" style="margin-right: 10px;">商品管理</a>
+      <a href="staff.html" class="btn" style="margin-right: 10px;">スタッフ管理</a>
+      <a href="login.html" class="btn">ログアウト</a>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <h2>レーン管理</h2>
+      <button class="btn btn-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 5px;">
+          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg>
+        新規レーン追加
+      </button>
+    </div>
+    
+    <div class="row">
+      <div class="col" style="flex: 2;">
+        <div class="card">
+          <h3>レーン一覧</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>レーンID</th>
+                <th>レーン名</th>
+                <th>担当者</th>
+                <th>待ち件数</th>
+                <th>ステータス</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>LANE-001</td>
+                <td>レーン1</td>
+                <td>高橋 雅子</td>
+                <td>2件</td>
+                <td><span class="badge badge-success">対応中</span></td>
+                <td>
+                  <button class="btn" style="padding: 5px 10px; margin-right: 5px;">編集</button>
+                  <button class="btn btn-danger" style="padding: 5px 10px;">削除</button>
+                </td>
+              </tr>
+              <tr>
+                <td>LANE-002</td>
+                <td>レーン2</td>
+                <td>鈴木 花子</td>
+                <td>3件</td>
+                <td><span class="badge badge-success">対応中</span></td>
+                <td>
+                  <button class="btn" style="padding: 5px 10px; margin-right: 5px;">編集</button>
+                  <button class="btn btn-danger" style="padding: 5px 10px;">削除</button>
+                </td>
+              </tr>
+              <tr>
+                <td>LANE-003</td>
+                <td>レーン3</td>
+                <td>渡辺 健太</td>
+                <td>1件</td>
+                <td><span class="badge badge-success">対応中</span></td>
+                <td>
+                  <button class="btn" style="padding: 5px 10px; margin-right: 5px;">編集</button>
+                  <button class="btn btn-danger" style="padding: 5px 10px;">削除</button>
+                </td>
+              </tr>
+              <tr>
+                <td>LANE-004</td>
+                <td>レーン4</td>
+                <td>-</td>
+                <td>0件</td>
+                <td><span class="badge badge-secondary">未使用</span></td>
+                <td>
+                  <button class="btn" style="padding: 5px 10px; margin-right: 5px;">編集</button>
+                  <button class="btn btn-danger" style="padding: 5px 10px;">削除</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="card" style="margin-top: 20px;">
+          <h3>レーン編集</h3>
+          <form>
+            <div class="row">
+              <div class="col" style="flex: 1;">
+                <div class="form-group">
+                  <label for="lane-id">レーンID</label>
+                  <input type="text" id="lane-id" class="form-control" value="LANE-002">
+                </div>
+                <div class="form-group">
+                  <label for="lane-name">レーン名</label>
+                  <input type="text" id="lane-name" class="form-control" value="レーン2">
+                </div>
+                <div class="form-group">
+                  <label for="lane-location">場所</label>
+                  <input type="text" id="lane-location" class="form-control" value="22番ゲート横 BOPIS受取カウンター">
+                </div>
+              </div>
+              
+              <div class="col" style="flex: 1;">
+                <div class="form-group">
+                  <label for="lane-staff">担当者</label>
+                  <select id="lane-staff" class="form-control">
+                    <option>-</option>
+                    <option>高橋 雅子</option>
+                    <option selected>鈴木 花子</option>
+                    <option>渡辺 健太</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="lane-status">ステータス</label>
+                  <select id="lane-status" class="form-control">
+                    <option selected>対応中</option>
+                    <option>一時停止</option>
+                    <option>未使用</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="lane-capacity">最大処理能力（1時間あたり）</label>
+                  <input type="number" id="lane-capacity" class="form-control" value="15">
+                </div>
+              </div>
+              
+              <div class="col" style="flex: 1;">
+                <div class="form-group">
+                  <label for="lane-description">説明</label>
+                  <textarea id="lane-description" class="form-control" rows="3">中規模の注文向けのレーン。混雑時は小規模注文も対応。</textarea>
+                </div>
+                <div class="form-group">
+                  <label for="lane-notes">備考</label>
+                  <textarea id="lane-notes" class="form-control" rows="3">13:00-14:00の時間枠は混雑が予想されるため、追加スタッフの配置を検討。</textarea>
+                </div>
+              </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+              <button type="button" class="btn" style="margin-right: 10px;">キャンセル</button>
+              <button type="submit" class="btn btn-primary">保存</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <div class="col" style="flex: 1;">
+        <div class="card">
+          <h3>レーン割り当てルール</h3>
+          <div class="form-group">
+            <label for="lane-assignment-rule">割り当て方式</label>
+            <select id="lane-assignment-rule" class="form-control">
+              <option>ラウンドロビン（均等に分配）</option>
+              <option selected>商品点数ベース</option>
+              <option>受取時間枠ベース</option>
+              <option>手動割り当て</option>
+            </select>
+          </div>
+          
+          <div id="product-count-rules">
+            <h4>商品点数ベースのルール</h4>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>商品点数</th>
+                  <th>割り当てレーン</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1-2点</td>
+                  <td>
+                    <select class="form-control">
+                      <option>-</option>
+                      <option selected>レーン1</option>
+                      <option>レーン2</option>
+                      <option>レーン3</option>
+                      <option>レーン4</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>3-5点</td>
+                  <td>
+                    <select class="form-control">
+                      <option>-</option>
+                      <option>レーン1</option>
+                      <option selected>レーン2</option>
+                      <option>レーン3</option>
+                      <option>レーン4</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>6点以上</td>
+                  <td>
+                    <select class="form-control">
+                      <option>-</option>
+                      <option>レーン1</option>
+                      <option>レーン2</option>
+                      <option selected>レーン3</option>
+                      <option>レーン4</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <button class="btn" style="margin-top: 10px;">ルールを保存</button>
+          </div>
+        </div>
+        
+        <div class="card" style="margin-top: 20px;">
+          <h3>レーン負荷状況</h3>
+          <div style="height: 200px; background-color: #f9f9f9; border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+            <p style="color: #666;">ここにグラフが表示されます</p>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>レーン</th>
+                <th>現在の負荷</th>
+                <th>待ち時間</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>レーン1</td>
+                <td>
+                  <div style="background-color: #dff0d8; height: 20px; width: 40%; border-radius: 4px;"></div>
+                  <span>40%</span>
+                </td>
+                <td>約3分</td>
+              </tr>
+              <tr>
+                <td>レーン2</td>
+                <td>
+                  <div style="background-color: #fcf8e3; height: 20px; width: 60%; border-radius: 4px;"></div>
+                  <span>60%</span>
+                </td>
+                <td>約5分</td>
+              </tr>
+              <tr>
+                <td>レーン3</td>
+                <td>
+                  <div style="background-color: #dff0d8; height: 20px; width: 20%; border-radius: 4px;"></div>
+                  <span>20%</span>
+                </td>
+                <td>約1分</td>
+              </tr>
+              <tr>
+                <td>レーン4</td>
+                <td>
+                  <div style="background-color: #f5f5f5; height: 20px; width: 0%; border-radius: 4px;"></div>
+                  <span>0%</span>
+                </td>
+                <td>-</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="card" style="margin-top: 20px;">
+          <h3>時間枠別レーン割り当て</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>時間枠</th>
+                <th>予想注文数</th>
+                <th>必要レーン数</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>10:00-11:00</td>
+                <td>8件</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>11:00-12:00</td>
+                <td>10件</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>12:00-13:00</td>
+                <td>12件</td>
+                <td>2</td>
+              </tr>
+              <tr style="background-color: #fff3cd;">
+                <td>13:00-14:00</td>
+                <td>15件</td>
+                <td>3</td>
+              </tr>
+              <tr>
+                <td>14:00-15:00</td>
+                <td>10件</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>15:00-16:00</td>
+                <td>5件</td>
+                <td>1</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="alert alert-info">
+            <p>13:00-14:00の時間枠は混雑が予想されます。レーン4の稼働を検討してください。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card" style="margin-top: 20px;">
+      <h3>レーンレイアウト</h3>
+      <div style="border: 1px solid #ddd; padding: 20px; margin-bottom: 20px; background-color: #f9f9f9; position: relative; height: 300px;">
+        <div style="position: absolute; top: 20px; left: 20px; width: 200px; height: 80px; background-color: #4a90e2; color: white; text-align: center; line-height: 80px; border-radius: 4px;">
+          レーン1
+        </div>
+        <div style="position: absolute; top: 120px; left: 20px; width: 200px; height: 80px; background-color: #4a90e2; color: white; text-align: center; line-height: 80px; border-radius: 4px;">
+          レーン2
+        </div>
+        <div style="position: absolute; top: 220px; left: 20px; width: 200px; height: 80px; background-color: #4a90e2; color: white; text-align: center; line-height: 80px; border-radius: 4px;">
+          レーン3
+        </div>
+        <div style="position: absolute; top: 20px; left: 240px; width: 200px; height: 80px; background-color: #ddd; color: #666; text-align: center; line-height: 80px; border-radius: 4px;">
+          レーン4
+        </div>
+        <div style="position: absolute; top: 120px; left: 240px; width: 200px; height: 180px; background-color: #5cb85c; color: white; text-align: center; line-height: 180px; border-radius: 4px;">
+          待合エリア
+        </div>
+        <div style="position: absolute; top: 20px; right: 20px; width: 300px; height: 280px; background-color: #f0ad4e; color: white; text-align: center; line-height: 280px; border-radius: 4px;">
+          商品保管エリア
+        </div>
+      </div>
+      <div style="text-align: center;">
+        <button class="btn">レイアウト編集</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <p>&copy; 2025 BOPIS System</p>
+  </div>
+</body>
+</html>

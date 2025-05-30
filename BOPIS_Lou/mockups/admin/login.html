@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理者ログイン - BOPIS</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="header">
+    <h1>BOPIS - 管理者専用</h1>
+  </div>
+  
+  <div class="container">
+    <div class="card" style="max-width: 500px; margin: 50px auto;">
+      <h2>管理者ログイン</h2>
+      
+      <div style="text-align: center; margin-bottom: 30px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="#4a90e2" viewBox="0 0 16 16">
+          <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+        </svg>
+      </div>
+      
+      <form>
+        <div class="form-group">
+          <label for="admin-id">管理者ID</label>
+          <input type="text" id="admin-id" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="password">パスワード</label>
+          <input type="password" id="password" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="tenant">テナント選択</label>
+          <select id="tenant" class="form-control">
+            <option value="">テナントを選択してください</option>
+            <option value="1">音楽ライブイベントA</option>
+            <option value="2">アニメイベントB</option>
+            <option value="3">舞台イベントC</option>
+          </select>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <input type="checkbox" id="remember" style="margin-right: 5px;">
+            <label for="remember" style="display: inline;">ログイン情報を記憶する</label>
+          </div>
+        </div>
+        <div style="margin-top: 20px;">
+          <button type="submit" class="btn btn-primary" style="width: 100%;">ログイン</button>
+        </div>
+      </form>
+      
+      <div style="margin-top: 20px; text-align: center;">
+        <p>問題が発生した場合は、システム管理者にお問い合わせください。</p>
+        <p><a href="#">パスワードをお忘れですか？</a></p>
+      </div>
+      
+      <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
+        <p style="text-align: center; font-weight: bold;">管理者専用ポータル</p>
+        <p style="text-align: center; font-size: 14px; color: #666;">このページは管理者専用です。一般ユーザーの方は<a href="../customer/login.html">こちら</a>からログインしてください。</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <p>&copy; 2025 BOPIS System</p>
+  </div>
+</body>
+</html>
