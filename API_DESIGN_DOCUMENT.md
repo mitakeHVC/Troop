@@ -166,20 +166,20 @@ class Order(Base): # From existing TSD, updated
     payment_status = Column(SAEnum(PaymentStatus), nullable=False, default=PaymentStatus.UNPAID)
     total_amount = Column(Numeric(10, 2), nullable=False)
     pickup_token = Column(String, unique=True, index=True, nullable=True)
-    
+
     pickup_slot_id = Column(Integer, ForeignKey('pickup_time_slots.id'), nullable=True)
     assigned_lane_id = Column(Integer, ForeignKey('lanes.id'), nullable=True)
     # For identity verification, perhaps store a specific question or a hint.
     # Example: A product_id from the order to ask "How many of X did you buy?"
-    identity_verification_product_id = Column(Integer, ForeignKey('products.id'), nullable=True) 
-    
+    identity_verification_product_id = Column(Integer, ForeignKey('products.id'), nullable=True)
+
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
     customer = relationship("User", back_populates="orders")
     tenant = relationship("Tenant", back_populates="orders")
     order_items = relationship("OrderItem", back_populates="order", cascade="all, delete-orphan")
-    
+
     pickup_slot = relationship("PickupTimeSlot", back_populates="orders")
     assigned_lane = relationship("Lane", back_populates="orders_assigned", foreign_keys=[assigned_lane_id])
     # identity_verification_product = relationship("Product", foreign_keys=[identity_verification_product_id])
@@ -346,7 +346,7 @@ class ProductResponse(BaseModel):
 
     class Config:
         orm_mode = True
-        
+
 class OrderItemResponse(BaseModel):
     id: int
     order_id: int
@@ -377,7 +377,7 @@ class OrderResponse(BaseModel):
 
     class Config:
         orm_mode = True
-        
+
 class PaginatedResponse(BaseModel):
     items: List[Any]
     total: int
@@ -842,7 +842,7 @@ class OrderVerificationInfo(BaseModel): # Information to help verify customer
     order_id: int
     customer_username: str
     # Example verification detail:
-    identity_verification_product_name: Optional[str] = None 
+    identity_verification_product_name: Optional[str] = None
     identity_verification_product_quantity: Optional[int] = None
 
 class AssignToLaneRequest(BaseModel):

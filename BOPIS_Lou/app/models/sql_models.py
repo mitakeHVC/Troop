@@ -1,9 +1,9 @@
 import enum
-from sqlalchemy import create_engine, Column, Integer, String, DateTime, Boolean, Numeric, ForeignKey, Text, Enum as SAEnum, Time, UniqueConstraint
-from sqlalchemy.orm import relationship, declarative_base
+from sqlalchemy import create_engine, Column, Integer, String, DateTime, Boolean, Numeric, ForeignKey, Text, Enum as SAEnum, Time, UniqueConstraint # Keep other sqlalchemy imports
+from sqlalchemy.orm import relationship # Keep other sqlalchemy imports
 from sqlalchemy.sql import func
 
-Base = declarative_base()
+from app.db.base import Base # Changed: Import Base from app.db.base
 
 # --- Enums ---
 class UserRole(enum.Enum):
@@ -108,20 +108,20 @@ class Order(Base): # From existing TSD, updated
     payment_status = Column(SAEnum(PaymentStatus), nullable=False, default=PaymentStatus.UNPAID)
     total_amount = Column(Numeric(10, 2), nullable=False)
     pickup_token = Column(String, unique=True, index=True, nullable=True)
-    
+
     pickup_slot_id = Column(Integer, ForeignKey('pickup_time_slots.id'), nullable=True)
     assigned_lane_id = Column(Integer, ForeignKey('lanes.id'), nullable=True)
     # For identity verification, perhaps store a specific question or a hint.
     # Example: A product_id from the order to ask "How many of X did you buy?"
-    identity_verification_product_id = Column(Integer, ForeignKey('products.id'), nullable=True) 
-    
+    identity_verification_product_id = Column(Integer, ForeignKey('products.id'), nullable=True)
+
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
     customer = relationship("User", back_populates="orders")
     tenant = relationship("Tenant", back_populates="orders")
     order_items = relationship("OrderItem", back_populates="order", cascade="all, delete-orphan")
-    
+
     pickup_slot = relationship("PickupTimeSlot", back_populates="orders")
     assigned_lane = relationship("Lane", back_populates="orders_assigned", foreign_keys=[assigned_lane_id])
     # identity_verification_product = relationship("Product", foreign_keys=[identity_verification_product_id])
