@@ -32,22 +32,24 @@ def create_new_lane_admin(
 
 @router.get("/", response_model=List[LaneResponse])
 def list_lanes_admin_or_staff(
-    status_filter: Optional[PydanticLaneStatusEnum] = Query(None, alias="status"), # Use Pydantic enum
+    status_filter: Optional[PydanticLaneStatusEnum] = Query(None, alias="status"),
+    target_tenant_id: Optional[int] = Query(None, description="Super_admin can use this to specify tenant context."), # Added for SA
     db: Session = Depends(get_db),
     current_user: User = Depends(deps.get_current_user) # Allow any authenticated staff to see lanes
 ):
-    tenant_id_for_filter: Optional[int] = None
+    effective_tenant_id: Optional[int] = None
     if current_user.role == DBUserRoleEnum.super_admin:
-        # Allow super_admin if they provide a tenant_id query parameter
-        tenant_id_query: Optional[int] = Query(None, alias="targetTenantId").dependency # This won't work directly
-        # Instead, super_admin should use a different endpoint like /admin/tenants/{id}/lanes
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Super Admins must query lanes via a specific tenant context (e.g., /admin/tenants/{id}/lanes or provide ?targetTenantId=X).")
+        if target_tenant_id is None:
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Super admin must specify 'target_tenant_id' query parameter to list lanes.")
+        effective_tenant_id = target_tenant_id
+    elif current_user.tenant_id: # For tenant_admin, picker, counter
+        if target_tenant_id and target_tenant_id != current_user.tenant_id:
+             raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized to view lanes for the specified tenant.")
+        effective_tenant_id = current_user.tenant_id
+    else: # Should not happen if user has role that requires tenant_id and dependency is correct
+         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="User not associated with a tenant or invalid context.")
 
-    if not current_user.tenant_id: # Should be set for non-super_admin due to get_current_user logic or deps
-         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="User not associated with a tenant.")
-    tenant_id_for_filter = current_user.tenant_id
-
-    lanes = lane_service.get_lanes_by_tenant(db, tenant_id=tenant_id_for_filter, status_filter=status_filter)
+    lanes = lane_service.get_lanes_by_tenant(db, tenant_id=effective_tenant_id, status_filter=status_filter)
     return lanes
 
 @router.get("/{lane_id}", response_model=LaneResponse)

@@ -590,11 +590,19 @@ class ProductUpdate(BaseModel):
     # version is handled by server for optimistic locking
 ```
 
-#### 1. List Products for Tenant
-- **GET** `/products` (Implicitly scoped to tenant via auth) or `/tenants/{tenant_id}/products` (Explicit)
-- **Description:** Lists all products for the authenticated tenant admin or a specified tenant (for super_admin). Customers would use a public version, possibly `/public/tenants/{tenant_id}/products`.
-- **Permissions:** `tenant_admin`, `super_admin`. (Public version for customers)
-- **Query Parameters:** `page: int = 1`, `size: int = 20`, `updated_since: Optional[datetime.datetime] = None` (for delta sync), `sku: Optional[str] = None`
+#### 1. List Products
+- **GET** `/products`
+- **Description:** Lists products.
+  - Public/General Users: Must provide `tenantId` query parameter.
+  - Tenant Admin: Sees products for their own tenant. `tenantId` query parameter is ignored or validated against their own.
+  - Super Admin: Must provide `tenantId` query parameter to specify which tenant's products to view.
+- **Permissions:** Optional Authentication (Public with `tenantId`), `customer` (with `tenantId`), `picker` (with `tenantId`), `counter` (with `tenantId`), `tenant_admin`, `super_admin`.
+- **Query Parameters:**
+    - `page: int = 1`
+    - `size: int = 100` (Max 200)
+    - `updated_since: Optional[datetime.datetime] = None` (For delta synchronization)
+    - `sku: Optional[str] = None` (Filter by SKU)
+    - `tenantId: Optional[int] = None` (Required for Public/General users and Super Admin to specify tenant context)
 - **Success Response:** `200 OK`, `PaginatedResponse[ProductResponse]`
 
 #### 2. Create Product
@@ -606,9 +614,14 @@ class ProductUpdate(BaseModel):
 
 #### 3. Get Product Details
 - **GET** `/products/{product_id}`
-- **Description:** Retrieves details of a specific product. Scoped by tenant.
-- **Permissions:** `tenant_admin`, `super_admin`. (Public for customers)
+- **Description:** Retrieves details of a specific product.
+  - Public/General Users: Must provide `tenantId` query parameter.
+  - Tenant Admin: Can view products from their own tenant. `tenantId` query parameter is ignored or validated.
+  - Super Admin: Must provide `tenantId` query parameter.
+- **Permissions:** Optional Authentication (Public with `tenantId`), `customer` (with `tenantId`), `picker` (with `tenantId`), `counter` (with `tenantId`), `tenant_admin`, `super_admin`.
 - **Path Parameters:** `product_id: int`
+- **Query Parameters:**
+    - `tenantId: Optional[int] = None` (Required for Public/General users and Super Admin)
 - **Success Response:** `200 OK`, `ProductResponse`
 
 #### 4. Update Product
@@ -631,19 +644,26 @@ class ProductUpdate(BaseModel):
 - **Path Parameters:** `product_id: int`
 - **Success Response:** `204 No Content`
 
-### Pickup Time Slot Endpoints (Tenant Admin)
+### Pickup Time Slot Endpoints
 
 Pydantic Models for PickupTimeSlot:
 ```python
 class PickupTimeSlotBase(BaseModel):
-    date: datetime.date # Keep as date for API, convert to datetime internally if needed
+    date: datetime.date
     start_time: datetime.time
     end_time: datetime.time
     capacity: int
     is_active: bool = True
 
 class PickupTimeSlotCreate(PickupTimeSlotBase):
-    pass # tenant_id from path
+    pass # tenant_id will be derived from authenticated tenant_admin
+
+class PickupTimeSlotUpdate(BaseModel): # Added for completeness
+    date: Optional[datetime.date] = None
+    start_time: Optional[datetime.time] = None
+    end_time: Optional[datetime.time] = None
+    capacity: Optional[int] = None
+    is_active: Optional[bool] = None
 
 class PickupTimeSlotResponse(PickupTimeSlotBase):
     id: int
@@ -656,123 +676,181 @@ class PickupTimeSlotResponse(PickupTimeSlotBase):
         orm_mode = True
 ```
 
-#### 1. List Pickup Time Slots for Tenant
-- **GET** `/tenants/{tenant_id}/pickup-slots`
-- **Description:** Lists all pickup time slots for a tenant.
-- **Permissions:** `tenant_admin`, `customer` (for available slots).
+#### 1. List Available Pickup Time Slots for a Tenant (Public/Customer View)
+- **GET** `/timeslots/tenant/{tenant_id}/available`
+- **Description:** Lists active and available pickup time slots for a specific tenant.
+- **Permissions:** Public / Any Authenticated User.
 - **Path Parameters:** `tenant_id: int`
-- **Query Parameters:** `page: int = 1`, `size: int = 20`, `date_from: Optional[datetime.date] = None`, `date_to: Optional[datetime.date] = None`, `is_active: Optional[bool] = True`
+- **Query Parameters:**
+    - `date_from: Optional[datetime.date] = None` (Filter slots from this date)
+    - `date_to: Optional[datetime.date] = None` (Filter slots up to this date)
+    - `page: int = 0` (or `skip`)
+    - `size: int = 100` (or `limit`)
 - **Success Response:** `200 OK`, `PaginatedResponse[PickupTimeSlotResponse]`
 
-#### 2. Create Pickup Time Slot
-- **POST** `/tenants/{tenant_id}/pickup-slots`
-- **Description:** Creates a new pickup time slot for the tenant.
+#### 2. List All Pickup Time Slots (Admin View)
+- **GET** `/timeslots/`
+- **Description:** Lists all pickup time slots for the authenticated tenant admin's tenant. Super_admins must use the `target_tenant_id_for_superadmin` query parameter.
+- **Permissions:** `tenant_admin`, `super_admin`.
+- **Query Parameters:**
+    - `target_tenant_id_for_superadmin: Optional[int] = None` (Required for Super Admin to specify tenant context)
+    - `page: int = 0` (or `skip`)
+    - `size: int = 100` (or `limit`)
+    - `date_from: Optional[datetime.date] = None`
+    - `date_to: Optional[datetime.date] = None`
+    - `is_active: Optional[bool] = None` (Filter by active status)
+- **Success Response:** `200 OK`, `PaginatedResponse[PickupTimeSlotResponse]`
+
+#### 3. Create Pickup Time Slot (Tenant Admin)
+- **POST** `/timeslots/`
+- **Description:** Creates a new pickup time slot for the authenticated tenant admin's tenant.
 - **Permissions:** `tenant_admin`.
-- **Path Parameters:** `tenant_id: int`
 - **Request Body:** `PickupTimeSlotCreate`
 - **Success Response:** `201 Created`, `PickupTimeSlotResponse`
 
-#### 3. Get Pickup Time Slot Details
-- **GET** `/tenants/{tenant_id}/pickup-slots/{slot_id}`
-- **Description:** Retrieves details of a specific pickup time slot.
+#### 4. Get Pickup Time Slot Details (Tenant Admin)
+- **GET** `/timeslots/{timeslot_id}`
+- **Description:** Retrieves details of a specific pickup time slot for the authenticated tenant admin's tenant.
 - **Permissions:** `tenant_admin`.
-- **Path Parameters:** `tenant_id: int`, `slot_id: int`
+- **Path Parameters:** `timeslot_id: int`
 - **Success Response:** `200 OK`, `PickupTimeSlotResponse`
 
-#### 4. Update Pickup Time Slot
-- **PUT** `/tenants/{tenant_id}/pickup-slots/{slot_id}`
-- **Description:** Updates a pickup time slot's details.
+#### 5. Update Pickup Time Slot (Tenant Admin)
+- **PUT** `/timeslots/{timeslot_id}`
+- **Description:** Updates a pickup time slot's details for the authenticated tenant admin's tenant.
 - **Permissions:** `tenant_admin`.
-- **Path Parameters:** `tenant_id: int`, `slot_id: int`
-- **Request Body:** `PickupTimeSlotCreate` (or a `PickupTimeSlotUpdate` model with all fields optional)
+- **Path Parameters:** `timeslot_id: int`
+- **Request Body:** `PickupTimeSlotUpdate`
 - **Success Response:** `200 OK`, `PickupTimeSlotResponse`
 
-#### 5. Delete Pickup Time Slot
-- **DELETE** `/tenants/{tenant_id}/pickup-slots/{slot_id}`
-- **Description:** Deletes a pickup time slot (consider implications if orders are assigned).
+#### 6. Delete Pickup Time Slot (Tenant Admin)
+- **DELETE** `/timeslots/{timeslot_id}`
+- **Description:** Deletes a pickup time slot for the authenticated tenant admin's tenant.
 - **Permissions:** `tenant_admin`.
-- **Path Parameters:** `tenant_id: int`, `slot_id: int`
+- **Path Parameters:** `timeslot_id: int`
 - **Success Response:** `204 No Content`
 
 
-### Lane Endpoints (Tenant Admin)
+### Lane Endpoints
 
-Pydantic Models for Lane:
+Pydantic Models for Lane: (Includes `LaneUpdate` and staff assignment schemas)
 ```python
+# Pydantic version of LaneStatusEnum (already defined in common section or here)
+# class LaneStatusEnum(str, enum.Enum): OPEN = "OPEN"; CLOSED = "CLOSED"; BUSY = "BUSY"
+
 class LaneBase(BaseModel):
     name: str
-    status: LaneStatusEnum = LaneStatusEnum.CLOSED
 
 class LaneCreate(LaneBase):
-    pass # tenant_id from path
+    status: LaneStatusEnum = LaneStatusEnum.CLOSED
+
+class LaneUpdate(BaseModel): # Added
+    name: Optional[str] = None
+    status: Optional[LaneStatusEnum] = None
 
 class LaneResponse(LaneBase):
     id: int
     tenant_id: int
+    status: LaneStatusEnum
     current_order_id: Optional[int] = None
-    # current_order: Optional[OrderResponse] = None # Populate if needed
-    # staff_assignments: List[StaffAssignmentResponse] = [] # Populate if needed
     created_at: datetime.datetime
     updated_at: datetime.datetime
+    # staff_assignments: List[StaffAssignmentBasicInfo] = [] # Can be added later if needed
 
     class Config:
         orm_mode = True
 
-class LaneStatusUpdate(BaseModel):
+class LaneStatusUpdateRequest(BaseModel): # For staff to update their lane status
     status: LaneStatusEnum
+
+class StaffAssignmentToLaneCreate(BaseModel):
+    user_id: int
+
+class StaffAssignmentResponse(BaseModel):
+    id: int
+    user_id: int
+    tenant_id: int
+    assigned_role: UserRoleEnum
+    lane_id: Optional[int] = None
+    is_active: bool
+    start_time: datetime.datetime
+    end_time: Optional[datetime.datetime] = None
+    user: UserResponse
+
+    class Config:
+        orm_mode = True
 ```
 
-#### 1. List Lanes for Tenant
-- **GET** `/tenants/{tenant_id}/lanes`
-- **Description:** Lists all lanes for a tenant.
-- **Permissions:** `tenant_admin`, `counter` staff.
-- **Path Parameters:** `tenant_id: int`
-- **Query Parameters:** `page: int = 1`, `size: int = 20`, `status: Optional[LaneStatusEnum] = None`
+#### 1. List Lanes for Tenant (Admin/Staff View)
+- **GET** `/lanes/`
+- **Description:** Lists all lanes for the authenticated staff member's tenant. Super_admins must use `target_tenant_id` query parameter.
+- **Permissions:** `counter`, `tenant_admin`, `super_admin`.
+- **Query Parameters:**
+    - `status: Optional[LaneStatusEnum] = None` (Filter by lane status)
+    - `target_tenant_id: Optional[int] = None` (Required for Super Admin to specify tenant context)
+    - `page: int = 0` (or `skip`)
+    - `size: int = 100` (or `limit`)
 - **Success Response:** `200 OK`, `PaginatedResponse[LaneResponse]`
 
-#### 2. Create Lane
-- **POST** `/tenants/{tenant_id}/lanes`
-- **Description:** Creates a new lane for the tenant.
+#### 2. Create Lane (Tenant Admin)
+- **POST** `/lanes/`
+- **Description:** Creates a new lane for the authenticated tenant admin's tenant.
 - **Permissions:** `tenant_admin`.
-- **Path Parameters:** `tenant_id: int`
 - **Request Body:** `LaneCreate`
 - **Success Response:** `201 Created`, `LaneResponse`
 
-#### 3. Get Lane Details
-- **GET** `/tenants/{tenant_id}/lanes/{lane_id}`
-- **Description:** Retrieves details of a specific lane.
-- **Permissions:** `tenant_admin`, `counter` staff.
-- **Path Parameters:** `tenant_id: int`, `lane_id: int`
+#### 3. Get Lane Details (Admin/Staff View)
+- **GET** `/lanes/{lane_id}`
+- **Description:** Retrieves details of a specific lane for the authenticated staff member's tenant.
+- **Permissions:** `counter`, `tenant_admin`, `super_admin` (super_admin needs tenant context, usually via different path).
+- **Path Parameters:** `lane_id: int`
 - **Success Response:** `200 OK`, `LaneResponse`
 
-#### 4. Update Lane
-- **PUT** `/tenants/{tenant_id}/lanes/{lane_id}`
-- **Description:** Updates a lane's details (e.g., name). Status updated via separate endpoint.
+#### 4. Update Lane Details (Tenant Admin)
+- **PUT** `/lanes/{lane_id}`
+- **Description:** Updates a lane's details (e.g., name) for the authenticated tenant admin's tenant.
 - **Permissions:** `tenant_admin`.
-- **Path Parameters:** `tenant_id: int`, `lane_id: int`
-- **Request Body:** `LaneCreate` (or a `LaneUpdate` model)
+- **Path Parameters:** `lane_id: int`
+- **Request Body:** `LaneUpdate`
 - **Success Response:** `200 OK`, `LaneResponse`
 
-#### 5. Update Lane Status
-- **PATCH** `/tenants/{tenant_id}/lanes/{lane_id}/status`
-- **Description:** Updates the status of a lane (OPEN, CLOSED, BUSY).
-- **Permissions:** `tenant_admin`, `counter` staff.
-- **Path Parameters:** `tenant_id: int`, `lane_id: int`
-- **Request Body:** `LaneStatusUpdate`
+#### 5. Update Lane Status (Counter/Tenant Admin)
+- **PATCH** `/lanes/{lane_id}/status`
+- **Description:** Updates the status of a lane (OPEN, CLOSED, BUSY). Allowed for assigned counter staff or tenant admins.
+- **Permissions:** `counter` (assigned to lane), `tenant_admin`.
+- **Path Parameters:** `lane_id: int`
+- **Request Body:** `LaneStatusUpdateRequest`
 - **Success Response:** `200 OK`, `LaneResponse`
 
-#### 6. Assign Staff to Lane (Covered by StaffAssignment model, could be part of Staff or Lane resource)
-- **POST** `/tenants/{tenant_id}/lanes/{lane_id}/assign-staff`
-- **Description:** Assigns a staff member (counter) to a lane. (This might be better handled through the StaffAssignment resource itself).
+#### 6. Delete Lane (Tenant Admin)
+- **DELETE** `/lanes/{lane_id}`
+- **Description:** Deletes a lane for the authenticated tenant admin's tenant.
 - **Permissions:** `tenant_admin`.
-- **Path Parameters:** `tenant_id: int`, `lane_id: int`
-- **Request Body:**
-    ```python
-    class LaneStaffAssignmentRequest(BaseModel):
-        user_id: int # Staff user_id
-        # assigned_role should be 'counter'
-    ```
-- **Success Response:** `200 OK`, `StaffAssignmentResponse` (or `LaneResponse` with updated assignments)
+- **Path Parameters:** `lane_id: int`
+- **Success Response:** `200 OK`, `LaneResponse` (or 204 No Content)
+
+#### 7. Assign Staff to Lane (Tenant Admin)
+- **POST** `/lanes/{lane_id}/staff-assignments`
+- **Description:** Assigns a 'counter' staff member to a lane for the authenticated tenant admin's tenant.
+- **Permissions:** `tenant_admin`.
+- **Path Parameters:** `lane_id: int`
+- **Request Body:** `StaffAssignmentToLaneCreate`
+- **Success Response:** `201 Created`, `StaffAssignmentResponse`
+
+#### 8. List Staff Assignments for Lane (Tenant Admin)
+- **GET** `/lanes/{lane_id}/staff-assignments`
+- **Description:** Lists staff assignments for a specific lane in the authenticated tenant admin's tenant.
+- **Permissions:** `tenant_admin`.
+- **Path Parameters:** `lane_id: int`
+- **Query Parameters:** `active: bool = True` (Filter by active assignments)
+- **Success Response:** `200 OK`, `List[StaffAssignmentResponse]`
+
+#### 9. Unassign Staff from Lane (Tenant Admin)
+- **DELETE** `/lanes/{lane_id}/staff-assignments/{assignment_id}`
+- **Description:** Deactivates a staff assignment from a lane for the authenticated tenant admin's tenant.
+- **Permissions:** `tenant_admin`.
+- **Path Parameters:** `lane_id: int`, `assignment_id: int`
+- **Success Response:** `200 OK`, `StaffAssignmentResponse`
 
 ### Picker Workflow Endpoints
 
@@ -797,35 +875,30 @@ class OrderSummaryPicker(OrderResponse): # Inherit and add/modify fields if need
 - **GET** `/picker/orders`
 - **Description:** Retrieves orders assigned to the picker or generally available for picking (status `ORDER_CONFIRMED` or `PROCESSING`). Tenant is implicit from picker's profile.
 - **Permissions:** `picker`.
-- **Query Parameters:** `page: int = 1`, `size: int = 20`, `status: OrderStatusEnum = OrderStatusEnum.ORDER_CONFIRMED` (can also query `PROCESSING`)
-- **Success Response:** `200 OK`, `PaginatedResponse[OrderSummaryPicker]`
+- **Query Parameters:**
+    - `page: int = 0` (or `skip`)
+    - `size: int = 100` (or `limit`)
+    - `status: Optional[OrderStatusEnum] = None` (Filter by order status, e.g., `ORDER_CONFIRMED`, `PROCESSING`)
+- **Success Response:** `200 OK`, `PaginatedResponse[PickerOrderSummaryResponse]`
 
 #### 2. Get Order Details for Picking
 - **GET** `/picker/orders/{order_id}`
-- **Description:** Retrieves full details of an order for picking.
-- **Permissions:** `picker`.
+- **Description:** Retrieves full details of an order for the picker's tenant.
+- **Permissions:** `picker`, `tenant_admin`, `super_admin` (super_admin needs tenant context).
 - **Path Parameters:** `order_id: int`
-- **Success Response:** `200 OK`, `OrderSummaryPicker` (with full order_items and product details)
+- **Success Response:** `200 OK`, `PickerOrderDetailsResponse`
 
 #### 3. Start Picking Order
 - **POST** `/picker/orders/{order_id}/start-picking`
-- **Description:** Marks an order as `PROCESSING`. Assigns the order to the picker if not already.
-- **Permissions:** `picker`.
+- **Description:** Marks an order as `PROCESSING`.
+- **Permissions:** `picker`, `tenant_admin`, `super_admin` (super_admin needs tenant context).
 - **Path Parameters:** `order_id: int`
-- **Success Response:** `200 OK`, `OrderSummaryPicker` (updated status)
+- **Success Response:** `200 OK`, `PickerOrderDetailsResponse` (updated order)
 
-#### 4. Update Picking Progress / Mark Items as Picked
-- **PUT** `/picker/orders/{order_id}/update-picking`
-- **Description:** Picker updates the status of picked items (e.g., quantity found, substitutions). This is more for detailed tracking if needed. Simpler flow might skip this.
-- **Permissions:** `picker`.
-- **Path Parameters:** `order_id: int`
-- **Request Body:** `OrderPickingUpdateRequest`
-- **Success Response:** `200 OK`, `OrderSummaryPicker`
-
-#### 5. Mark Order as Ready for Pickup
+#### 4. Mark Order as Ready for Pickup
 - **POST** `/picker/orders/{order_id}/ready-for-pickup`
-- **Description:** Marks an order as `READY_FOR_PICKUP`.
-- **Permissions:** `picker`.
+- **Description:** Marks an order as `READY_FOR_PICKUP` and creates notifications.
+- **Permissions:** `picker`, `tenant_admin`, `super_admin` (super_admin needs tenant context).
 - **Path Parameters:** `order_id: int`
 - **Request Body:** (Optional) Notes from picker.
     ```python
@@ -853,23 +926,22 @@ class AssignToLaneRequest(BaseModel):
 - **GET** `/counter/orders`
 - **Description:** Retrieves orders that are `READY_FOR_PICKUP` or `PROCESSING` (if counter also handles problem orders). Tenant implicit from counter's profile.
 - **Permissions:** `counter`.
-- **Query Parameters:** `page: int = 1`, `size: int = 20`, `status: OrderStatusEnum = OrderStatusEnum.READY_FOR_PICKUP`, `pickup_token: Optional[str] = None` (for quick search)
-- **Success Response:** `200 OK`, `PaginatedResponse[OrderResponse]`
+- **Query Parameters:**
+    - `page: int = 0` (or `skip`)
+    - `size: int = 100` (or `limit`)
+    - `lane_id: Optional[int] = None` (Filter by specific lane)
+    - `unassigned: Optional[bool] = False` (Filter for unassigned orders)
+    # `pickup_token` can be added if direct search by token is needed in this list view
+- **Success Response:** `200 OK`, `PaginatedResponse[CounterOrderSummaryResponse]`
 
-#### 2. Get Order Details for Counter
-- **GET** `/counter/orders/{order_id}`
-- **Description:** Retrieves full details of an order for counter staff.
-- **Permissions:** `counter`.
-- **Path Parameters:** `order_id: int`
-- **Success Response:** `200 OK`, `OrderResponse`
 
-#### 3. Assign Order to Lane
+#### 2. Assign Order to Lane
 - **POST** `/counter/orders/{order_id}/assign-to-lane`
-- **Description:** Assigns an order to a specific lane for pickup. Updates lane status to `BUSY` and sets `current_order_id`.
-- **Permissions:** `counter`.
+- **Description:** Assigns a `READY_FOR_PICKUP` order to an `OPEN` lane.
+- **Permissions:** `counter`, `tenant_admin`, `super_admin` (super_admin needs tenant context).
 - **Path Parameters:** `order_id: int`
-- **Request Body:** `AssignToLaneRequest`
-- **Success Response:** `200 OK`, `OrderResponse` (with `assigned_lane_id`) and `LaneResponse` (or just confirm with 200 OK and updated order)
+- **Request Body:** `CounterAssignOrderToLaneRequest`
+- **Success Response:** `200 OK`, `OrderResponse` (reflecting the updated `assigned_lane_id`)
 - **Error Responses:** 409 (Lane not OPEN or already BUSY with another order)
 
 #### 4. Verify Customer Identity & Retrieve Order (Covered by `/orders/verify-pickup`)
@@ -944,7 +1016,12 @@ class OrderCompletionRequest(BaseModel):
 - **GET** `/orders`
 - **Description:** Lists orders for the authenticated user. Admins/staff might have broader access based on tenant.
 - **Permissions:** `customer` (own orders), `picker`, `counter`, `tenant_admin` (tenant orders), `super_admin` (all orders).
-- **Query Parameters:** `page: int = 1`, `size: int = 20`, `status: Optional[OrderStatusEnum] = None`, `order_type: Optional[OrderTypeEnum] = None`
+- **Query Parameters:**
+    - `page: int = 0` (or `skip`)
+    - `size: int = 100` (or `limit`)
+    - `status: Optional[OrderStatusEnum] = None`
+    - `order_type: Optional[OrderTypeEnum] = None`
+    # `tenant_id_filter: Optional[int] = None` (For super_admin to filter by tenant)
 - **Success Response:** `200 OK`, `PaginatedResponse[OrderResponse]`
 
 #### 7. Get Order Details
@@ -957,7 +1034,8 @@ class OrderCompletionRequest(BaseModel):
 #### 8. Verify Pickup Token & Get Order Info
 - **POST** `/orders/verify-pickup`
 - **Description:** Verifies a pickup token (from QR code) and returns order information for verification by counter staff.
-- **Permissions:** `counter`.
+- **Permissions:** `counter`, `tenant_admin`, `super_admin`.
+- **Permissions:** `counter`, `tenant_admin`, `super_admin`.
 - **Request Body:** `OrderPickupTokenVerificationRequest`
 - **Success Response:** `200 OK`, `OrderVerificationInfo` (includes order ID, customer name, and a product from the order to ask about, e.g., "How many X did you buy?")
 - **Error Responses:** 404 (token not found), 400 (order not ready for pickup)
@@ -1024,7 +1102,10 @@ class NotificationUpdate(BaseModel):
 - **GET** `/notifications`
 - **Description:** Lists notifications for the authenticated user.
 - **Permissions:** Authenticated (any role).
-- **Query Parameters:** `page: int = 1`, `size: int = 20`, `status: Optional[NotificationStatusEnum] = NotificationStatusEnum.UNREAD`
+- **Query Parameters:**
+    - `page: int = 0` (or `skip`)
+    - `size: int = 100` (or `limit`)
+    - `status: Optional[NotificationStatusEnum] = NotificationStatusEnum.UNREAD`
 - **Success Response:** `200 OK`, `PaginatedResponse[NotificationResponse]`
 
 #### 2. Mark Notification as Read/Archived
