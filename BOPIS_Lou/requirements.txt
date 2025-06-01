@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+alembic
+pydantic[email]
+python-jose[cryptography]
+passlib[bcrypt]
+psycopg2-binary  # Or other appropriate DB driver if PostgreSQL is not the final choice
+# Add other dependencies as needed, e.g., python-multipart for form data
+
+# Testing dependencies
+pytest
+httpx
