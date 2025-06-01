@@ -86,7 +86,7 @@ def create_product(db: Session, product_create_data: ProductCreate, tenant_id: i
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Product with SKU '{product_create_data.sku}' already exists for this tenant.")
 
     db_product = Product(
-        **product_create_data.dict(),
+        **product_create_data.model_dump(), # Changed to model_dump()
         tenant_id=tenant_id,
         version=1, # Initial version
     )
@@ -113,7 +113,7 @@ def update_product(db: Session, db_product: Product, product_update_data: Produc
     Returns:
         The updated Product object.
     """
-    update_data = product_update_data.dict(exclude_unset=True)
+    update_data = product_update_data.model_dump(exclude_unset=True) # Changed to model_dump()
 
     if product_update_data.version is not None:
         if db_product.version != product_update_data.version:
