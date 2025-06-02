@@ -9,8 +9,8 @@ from typing import List, Optional
 import datetime
 from app.models.sql_models import PickupTimeSlot
 from app.models.sql_models import LaneStatus as DBLaneStatusEnum # Not used here, but good practice if related
-from app.schemas.timeslot_schemas import PickupTimeSlotCreate, PickupTimeSlotUpdate, NotificationStatusEnum # Import Pydantic enum for status filter
-from app.schemas.timeslot_schemas import PickupTimeSlotStatusEnum as PydanticPickupTimeSlotStatusEnum # This was a mistake, should be NotificationStatusEnum if it was for a status filter.
+from app.schemas.timeslot_schemas import PickupTimeSlotCreate, PickupTimeSlotUpdate
+from app.schemas.notification_schemas import NotificationStatusEnum # Corrected import
 # For timeslot, is_active is a boolean. If filtering by a status enum, it would be defined in timeslot_schemas.
 # The current filter `is_active: Optional[bool]` is fine.
 from fastapi import HTTPException, status

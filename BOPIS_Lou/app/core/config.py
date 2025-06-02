@@ -1,4 +1,5 @@
-from pydantic import BaseSettings, AnyHttpUrl
+from pydantic_settings import BaseSettings
+from pydantic import AnyHttpUrl # Keep AnyHttpUrl from pydantic if used
 from typing import List, Optional
 
 class Settings(BaseSettings):

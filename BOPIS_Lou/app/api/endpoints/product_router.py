@@ -35,7 +35,7 @@ def create_new_product(
     if not current_user.tenant_id: # Should be guaranteed by get_current_active_tenant_admin if not super_admin
          raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Tenant admin must be associated with a tenant.")
 
-    return product_service.create_product(db=db, product_in=product_create_data, tenant_id=current_user.tenant_id)
+    return product_service.create_product(db=db, product_create_data=product_create_data, tenant_id=current_user.tenant_id) # Changed product_in to product_create_data
 
 @router.get("/", response_model=List[ProductResponse])
 def list_products( # Renamed for clarity
