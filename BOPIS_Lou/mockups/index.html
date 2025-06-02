@@ -1,199 +1,346 @@
+<!DOCTYPE html>
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BOPIS機能 モックアップ一覧</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- ダークモードトグル -->
+  <button class="theme-toggle" onclick="toggleTheme()" data-tooltip="テーマ切り替え">
+    <span id="theme-icon">🌙</span>
+  </button>
+
   <div class="header">
     <h1>BOPIS機能 モックアップ一覧</h1>
+    <nav class="nav">
+      <a href="#customer" class="nav-link">顧客</a>
+      <a href="#picker" class="nav-link">ピッカー</a>
+      <a href="#counter" class="nav-link">受付</a>
+      <a href="#admin" class="nav-link">管理者</a>
+    </nav>
   </div>
   
   <div class="container">
-    <div class="card">
-      <h2>モックアップ概要</h2>
-      <p>このページでは、BOPIS（Buy Online, Pick up In Store）機能の画面モックアップを一覧で表示しています。各ユーザータイプ（顧客、ピッカー、受付担当、テナント管理者）向けの画面を確認できます。</p>
-      <p>実際の画面を確認するには、以下のリンクをクリックしてください。</p>
+    <div class="card card-primary fade-in">
+      <div class="card-header">
+        <h2 class="card-title">モックアップ概要</h2>
+        <p class="card-subtitle">BOPIS機能の包括的なUIモックアップ</p>
+      </div>
+      <div class="card-body">
+        <div class="alert alert-info">
+          <div>
+            <strong>BOPIS（Buy Online, Pick up In Store）</strong>機能の画面モックアップを一覧で表示しています。各ユーザータイプ（顧客、ピッカー、受付担当、テナント管理者）向けの画面を確認できます。
+          </div>
+        </div>
+        <p>実際の画面を確認するには、以下のリンクをクリックしてください。</p>
+      </div>
     </div>
     
-    <div class="card">
-      <h2>顧客向け画面</h2>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>画面名</th>
-            <th>説明</th>
-            <th>リンク</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>ログイン画面</td>
-            <td>顧客がシステムにログインするための画面</td>
-            <td><a href="customer/login.html" class="btn">表示</a></td>
-          </tr>
-          <tr>
-            <td>テナント選択画面</td>
-            <td>利用するテナント（イベント）を選択する画面</td>
-            <td><a href="customer/tenants.html" class="btn">表示</a></td>
-          </tr>
-          <tr>
-            <td>商品一覧画面</td>
-            <td>テナントの商品一覧を表示する画面</td>
-            <td><a href="customer/products.html" class="btn">表示</a></td>
-          </tr>
-          <tr>
-            <td>商品詳細画面</td>
-            <td>商品の詳細情報を表示する画面</td>
-            <td><a href="customer/product-detail.html" class="btn">表示</a></td>
-          </tr>
-          <tr>
-            <td>カート画面</td>
-            <td>カートに追加した商品を確認する画面</td>
-            <td><a href="customer/cart.html" class="btn">表示</a></td>
-          </tr>
-          <tr>
-            <td>チェックアウト画面</td>
-            <td>注文を確定するための画面</td>
-            <td><a href="customer/checkout.html" class="btn">表示</a></td>
-          </tr>
-          <tr>
-            <td>注文確認画面</td>
-            <td>注文完了後のQRコード表示画面</td>
-            <td><a href="customer/order-confirmation.html" class="btn">表示</a></td>
-          </tr>
-          <tr>
-            <td>注文履歴画面</td>
-            <td>過去の注文履歴を確認する画面</td>
-            <td><a href="customer/orders.html" class="btn">表示</a></td>
-          </tr>
-        </tbody>
-      </table>
+    <div id="customer" class="card card-success fade-in">
+      <div class="card-header">
+        <h2 class="card-title">顧客向け画面</h2>
+        <p class="card-subtitle">オンライン注文から店舗受取までの顧客体験</p>
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>画面名</th>
+              <th>説明</th>
+              <th>アクション</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>ログイン画面</strong></td>
+              <td>顧客がシステムにログインするための画面</td>
+              <td><a href="customer/login.html" class="btn btn-primary btn-sm">表示</a></td>
+            </tr>
+            <tr>
+              <td><strong>テナント選択画面</strong></td>
+              <td>利用するテナント（イベント）を選択する画面</td>
+              <td><a href="customer/tenants.html" class="btn btn-primary btn-sm">表示</a></td>
+            </tr>
+            <tr>
+              <td><strong>商品一覧画面</strong></td>
+              <td>テナントの商品一覧を表示する画面</td>
+              <td><a href="customer/products.html" class="btn btn-primary btn-sm">表示</a></td>
+            </tr>
+            <tr>
+              <td><strong>商品詳細画面</strong></td>
+              <td>商品の詳細情報を表示する画面</td>
+              <td><a href="customer/product-detail.html" class="btn btn-primary btn-sm">表示</a></td>
+            </tr>
+            <tr>
+              <td><strong>カート画面</strong></td>
+              <td>カートに追加した商品を確認する画面</td>
+              <td><a href="customer/cart.html" class="btn btn-primary btn-sm">表示</a></td>
+            </tr>
+            <tr>
+              <td><strong>チェックアウト画面</strong></td>
+              <td>注文を確定するための画面</td>
+              <td><a href="customer/checkout.html" class="btn btn-primary btn-sm">表示</a></td>
+            </tr>
+            <tr>
+              <td><strong>注文確認画面</strong></td>
+              <td>注文完了後のQRコード表示画面</td>
+              <td><a href="customer/order-confirmation.html" class="btn btn-primary btn-sm">表示</a></td>
+            </tr>
+            <tr>
+              <td><strong>注文履歴画面</strong></td>
+              <td>過去の注文履歴を確認する画面</td>
+              <td><a href="customer/orders.html" class="btn btn-primary btn-sm">表示</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     
-    <div class="card">
-      <h2>ピッカー向け画面</h2>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>画面名</th>
-            <th>説明</th>
-            <th>リンク</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>ログイン画面</td>
-            <td>ピッカーがシステムにログインするための画面</td>
-            <td><a href="picker/login.html" class="btn">表示</a></td>
-          </tr>
-          <tr>
-            <td>ダッシュボード画面</td>
-            <td>ピッカーのメイン画面、注文一覧を表示</td>
-            <td><a href="picker/dashboard.html" class="btn">表示</a></td>
-          </tr>
-          <tr>
-            <td>注文詳細画面</td>
-            <td>ピッキングする注文の詳細を表示する画面</td>
-            <td><a href="picker/order-detail.html" class="btn">表示</a></td>
-          </tr>
-          <tr>
-            <td>準備完了画面</td>
-            <td>商品準備完了を確認する画面</td>
-            <td><a href="picker/complete.html" class="btn">表示</a></td>
-          </tr>
-        </tbody>
-      </table>
+    <div id="picker" class="card card-warning fade-in">
+      <div class="card-header">
+        <h2 class="card-title">ピッカー向け画面</h2>
+        <p class="card-subtitle">商品ピッキングと準備管理</p>
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>画面名</th>
+              <th>説明</th>
+              <th>アクション</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>ログイン画面</strong></td>
+              <td>ピッカーがシステムにログインするための画面</td>
+              <td><a href="picker/login.html" class="btn btn-warning btn-sm">表示</a></td>
+            </tr>
+            <tr>
+              <td><strong>ダッシュボード画面</strong></td>
+              <td>ピッカーのメイン画面、注文一覧を表示</td>
+              <td><a href="picker/dashboard.html" class="btn btn-warning btn-sm">表示</a></td>
+            </tr>
+            <tr>
+              <td><strong>注文詳細画面</strong></td>
+              <td>ピッキングする注文の詳細を表示する画面</td>
+              <td><a href="picker/order-detail.html" class="btn btn-warning btn-sm">表示</a></td>
+            </tr>
+            <tr>
+              <td><strong>準備完了画面</strong></td>
+              <td>商品準備完了を確認する画面</td>
+              <td><a href="picker/complete.html" class="btn btn-warning btn-sm">表示</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     
-    <div class="card">
-      <h2>受付担当向け画面</h2>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>画面名</th>
-            <th>説明</th>
-            <th>リンク</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>ログイン画面</td>
-            <td>受付担当がシステムにログインするための画面</td>
-            <td><a href="counter/login.html" class="btn">表示</a></td>
-          </tr>
-          <tr>
-            <td>ダッシュボード画面</td>
-            <td>受付担当のメイン画面、準備完了注文一覧を表示</td>
-            <td><a href="counter/dashboard.html" class="btn">表示</a></td>
-          </tr>
-          <tr>
-            <td>本人確認画面</td>
-            <td>顧客の本人確認を行うための画面</td>
-            <td><a href="counter/verify.html" class="btn">表示</a></td>
-          </tr>
-          <tr>
-            <td>受け渡し完了画面</td>
-            <td>商品受け渡し完了を確認する画面</td>
-            <td><a href="counter/complete.html" class="btn">表示</a></td>
-          </tr>
-        </tbody>
-      </table>
+    <div id="counter" class="card card-info fade-in">
+      <div class="card-header">
+        <h2 class="card-title">受付担当向け画面</h2>
+        <p class="card-subtitle">顧客対応と商品受け渡し管理</p>
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>画面名</th>
+              <th>説明</th>
+              <th>アクション</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>ログイン画面</strong></td>
+              <td>受付担当がシステムにログインするための画面</td>
+              <td><a href="counter/login.html" class="btn btn-info btn-sm">表示</a></td>
+            </tr>
+            <tr>
+              <td><strong>ダッシュボード画面</strong></td>
+              <td>受付担当のメイン画面、準備完了注文一覧を表示</td>
+              <td><a href="counter/dashboard.html" class="btn btn-info btn-sm">表示</a></td>
+            </tr>
+            <tr>
+              <td><strong>本人確認画面</strong></td>
+              <td>顧客の本人確認を行うための画面</td>
+              <td><a href="counter/verify.html" class="btn btn-info btn-sm">表示</a></td>
+            </tr>
+            <tr>
+              <td><strong>受け渡し完了画面</strong></td>
+              <td>商品受け渡し完了を確認する画面</td>
+              <td><a href="counter/complete.html" class="btn btn-info btn-sm">表示</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     
-    <div class="card">
-      <h2>テナント管理者向け画面</h2>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>画面名</th>
-            <th>説明</th>
-            <th>リンク</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>ログイン画面</td>
-            <td>テナント管理者がシステムにログインするための画面</td>
-            <td><a href="admin/login.html" class="btn">表示</a></td>
-          </tr>
-          <tr>
-            <td>ダッシュボード画面</td>
-            <td>テナント管理者のメイン画面、全体状況を表示</td>
-            <td><a href="admin/dashboard.html" class="btn">表示</a></td>
-          </tr>
-          <tr>
-            <td>商品管理画面</td>
-            <td>商品の追加・編集・削除を行う画面</td>
-            <td><a href="admin/products.html" class="btn">表示</a></td>
-          </tr>
-          <tr>
-            <td>スタッフ管理画面</td>
-            <td>スタッフの追加・編集・削除を行う画面</td>
-            <td><a href="admin/staff.html" class="btn">表示</a></td>
-          </tr>
-          <tr>
-            <td>レーン管理画面</td>
-            <td>レーンの追加・編集・削除を行う画面</td>
-            <td><a href="admin/lanes.html" class="btn">表示</a></td>
-          </tr>
-        </tbody>
-      </table>
+    <div id="admin" class="card card-danger fade-in">
+      <div class="card-header">
+        <h2 class="card-title">テナント管理者向け画面</h2>
+        <p class="card-subtitle">システム全体の管理と設定</p>
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>画面名</th>
+              <th>説明</th>
+              <th>アクション</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>ログイン画面</strong></td>
+              <td>テナント管理者がシステムにログインするための画面</td>
+              <td><a href="admin/login.html" class="btn btn-danger btn-sm">表示</a></td>
+            </tr>
+            <tr>
+              <td><strong>ダッシュボード画面</strong></td>
+              <td>テナント管理者のメイン画面、全体状況を表示</td>
+              <td><a href="admin/dashboard.html" class="btn btn-danger btn-sm">表示</a></td>
+            </tr>
+            <tr>
+              <td><strong>商品管理画面</strong></td>
+              <td>商品の追加・編集・削除を行う画面</td>
+              <td><a href="admin/products.html" class="btn btn-danger btn-sm">表示</a></td>
+            </tr>
+            <tr>
+              <td><strong>スタッフ管理画面</strong></td>
+              <td>スタッフの追加・編集・削除を行う画面</td>
+              <td><a href="admin/staff.html" class="btn btn-danger btn-sm">表示</a></td>
+            </tr>
+            <tr>
+              <td><strong>レーン管理画面</strong></td>
+              <td>レーンの追加・編集・削除を行う画面</td>
+              <td><a href="admin/lanes.html" class="btn btn-danger btn-sm">表示</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     
-    <div class="card">
-      <h3>使用方法</h3>
-      <ol>
-        <li>各ユーザータイプのログイン画面からフローを開始できます。</li>
-        <li>画面上のボタンやリンクをクリックして、各画面間を移動できます。</li>
-        <li>このモックアップは機能の概要を示すためのものであり、実際の動作はしません。</li>
-        <li>実装時には、このモックアップを参考にしてください。</li>
-      </ol>
+    <div class="card card-elevated fade-in">
+      <div class="card-header">
+        <h3 class="card-title">使用方法</h3>
+        <p class="card-subtitle">モックアップの操作ガイド</p>
+      </div>
+      <div class="card-body">
+        <div class="grid grid-cols-2">
+          <div>
+            <h4 class="font-semibold mb-2">基本操作</h4>
+            <ul class="mb-4">
+              <li>各ユーザータイプのログイン画面からフローを開始</li>
+              <li>画面上のボタンやリンクで画面間を移動</li>
+              <li>ダークモード切り替えボタンでテーマ変更</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-semibold mb-2">注意事項</h4>
+            <ul class="mb-4">
+              <li>このモックアップは機能概要の表示のみ</li>
+              <li>実際の動作やデータ処理は行いません</li>
+              <li>実装時の参考資料として活用してください</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="alert alert-warning">
+          <div>
+            <strong>開発者向け:</strong> 各画面のHTMLファイルには、実装時に参考となるUI構造とスタイリングが含まれています。
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   
   <div class="footer">
-    <p>&copy; 2025 BOPIS System</p>
+    <div class="container">
+      <p>&copy; 2025 BOPIS System - Modern UI Design</p>
+      <p class="text-sm text-muted">Built with modern CSS and responsive design</p>
+    </div>
   </div>
+
+  <script>
+    // ダークモードトグル機能
+    function toggleTheme() {
+      const body = document.body;
+      const themeIcon = document.getElementById('theme-icon');
+      const currentTheme = body.getAttribute('data-theme');
+      
+      if (currentTheme === 'dark') {
+        body.removeAttribute('data-theme');
+        themeIcon.textContent = '🌙';
+        localStorage.setItem('theme', 'light');
+      } else {
+        body.setAttribute('data-theme', 'dark');
+        themeIcon.textContent = '☀️';
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+
+    // ページ読み込み時にテーマを復元
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedTheme = localStorage.getItem('theme');
+      const themeIcon = document.getElementById('theme-icon');
+      
+      if (savedTheme === 'dark') {
+        document.body.setAttribute('data-theme', 'dark');
+        themeIcon.textContent = '☀️';
+      }
+
+      // スムーススクロール
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+
+      // フェードインアニメーション
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.fade-in').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+      });
+    });
+
+    // ボタンクリック時のフィードバック
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('btn')) {
+        e.target.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          e.target.style.transform = '';
+        }, 150);
+      }
+    });
+  </script>
 </body>
 </html>

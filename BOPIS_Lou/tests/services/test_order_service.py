@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session as SQLAlchemySession
 from fastapi import HTTPException
 import datetime
 import decimal
+import random
 
 from app.services import order_service, product_service, user_service, timeslot_service # All services
 from app.schemas.order_schemas import CartItemCreateRequest, CheckoutRequestSchema # Schemas used by order_service
@@ -11,10 +12,10 @@ from app.schemas.product_schemas import ProductCreate
 from app.schemas.timeslot_schemas import PickupTimeSlotCreate
 from app.models.sql_models import (
     Tenant, User, Product, Order, OrderItem, PickupTimeSlot,
-    DBOrderStatusEnum, # Corrected: Import DB enums from models.sql_models
-    DBOrderTypeEnum,
-    DBPaymentStatusEnum,
-    DBUserRoleEnum
+    OrderStatus, # Corrected: Import actual enum names from models.sql_models
+    OrderType,
+    PaymentStatus,
+    UserRole
 )
 # For mocking or direct use if conftest setup is comprehensive
 # from app.core.config import settings # For any config related logic if needed
@@ -79,7 +80,7 @@ def order_test_slot(db_session: SQLAlchemySession, order_test_tenant: Tenant) ->
 def test_get_or_create_cart(db_session: SQLAlchemySession, order_test_customer: User):
     cart = order_service.get_cart_by_user_id(db_session, user_id=order_test_customer.id, tenant_id=order_test_customer.tenant_id, create_if_not_exists=True) # type: ignore
     assert cart is not None
-    assert cart.status == DBOrderStatusEnum.CART # Check DB enum
+    assert cart.status == OrderStatus.CART # Check DB enum
     assert cart.user_id == order_test_customer.id
     assert cart.tenant_id == order_test_customer.tenant_id
     assert cart.total_amount == decimal.Decimal("0.00")
@@ -128,8 +129,8 @@ def test_checkout_cart_success(
     checkout_details = CheckoutRequestSchema(pickup_slot_id=order_test_slot.id)
     confirmed_order = order_service.checkout_cart(db_session, cart_order=cart, checkout_details=checkout_details)
 
-    assert confirmed_order.status == DBOrderStatusEnum.ORDER_CONFIRMED
-    assert confirmed_order.payment_status == DBPaymentStatusEnum.PAID
+    assert confirmed_order.status == OrderStatus.ORDER_CONFIRMED
+    assert confirmed_order.payment_status == PaymentStatus.PAID
     assert confirmed_order.pickup_slot_id == order_test_slot.id
     assert confirmed_order.pickup_token is not None
     assert confirmed_order.identity_verification_product_id == order_test_product.id # Since it's the only item
