@@ -8,254 +8,40 @@
 </head>
 <body>
   <div class="header">
-    <h1>BOPIS - 音楽ライブイベントA</h1>
+    <h1>BOPIS - チェックアウト</h1>
     <div>
+      <a href="products.html" class="btn" style="margin-right: 10px;">商品一覧</a>
       <a href="cart.html" class="btn notification" style="margin-right: 10px;">
-        カート
-        <span class="notification-badge">3</span>
+        カート <span class="notification-badge" style="display: none;">0</span>
       </a>
-      <a href="orders.html" class="btn" style="margin-right: 10px;">注文履歴</a>
-      <a href="tenants.html" class="btn" style="margin-right: 10px;">テナント選択</a>
-      <a href="login.html" class="btn">ログアウト</a>
+      <a href="#" id="logout-button" class="btn">ログアウト</a>
     </div>
   </div>
-  
+
   <div class="container">
-    <h2>チェックアウト</h2>
-    
-    <div class="row">
-      <div class="col" style="flex: 2;">
-        <div class="card">
-          <h3>注文内容</h3>
-          <table class="table">
-            <thead>
-              <tr>
-                <th style="width: 80px;">商品</th>
-                <th>詳細</th>
-                <th style="width: 80px;">数量</th>
-                <th style="width: 100px;">小計</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <img src="../images/product1.jpg" alt="ライブロゴTシャツ" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
-                </td>
-                <td>
-                  <h4 style="margin: 0 0 5px 0;">ライブロゴTシャツ</h4>
-                  <p style="margin: 0; font-size: 14px; color: #666;">サイズ: M</p>
-                </td>
-                <td>1</td>
-                <td>¥3,500</td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="../images/product2.jpg" alt="ツアータオル" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
-                </td>
-                <td>
-                  <h4 style="margin: 0 0 5px 0;">ツアータオル</h4>
-                </td>
-                <td>2</td>
-                <td>¥4,000</td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="../images/product3.jpg" alt="アクリルキーホルダー" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
-                </td>
-                <td>
-                  <h4 style="margin: 0 0 5px 0;">アクリルキーホルダー</h4>
-                </td>
-                <td>3</td>
-                <td>¥3,600</td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr>
-                <td colspan="3" style="text-align: right;"><strong>小計</strong></td>
-                <td><strong>¥11,100</strong></td>
-              </tr>
-              <tr>
-                <td colspan="3" style="text-align: right;">システム利用料</td>
-                <td>¥330</td>
-              </tr>
-              <tr>
-                <td colspan="3" style="text-align: right;"><strong>合計</strong></td>
-                <td><strong>¥11,430</strong></td>
-              </tr>
-            </tfoot>
-          </table>
-          
-          <div style="margin-top: 20px; text-align: right;">
-            <a href="cart.html" class="btn">カートに戻る</a>
-          </div>
+    <h2 class="text-2xl font-semibold mb-6">ご注文内容の確認</h2>
+    <div class="card mb-6">
+        <h3 class="card-title text-xl mb-3">注文概要</h3>
+        <div id="checkout-cart-summary">
+            <p>概要を読み込み中...</p>
         </div>
-        
-        <div class="card" style="margin-top: 20px;">
-          <h3>受取時間枠選択</h3>
-          <p>イベント日: <strong>2025年6月15日</strong></p>
-          
-          <div class="form-group">
-            <label for="pickup-time">受取時間枠</label>
-            <select id="pickup-time" class="form-control">
-              <option>10:00 - 11:00 (空き: 多)</option>
-              <option>11:00 - 12:00 (空き: 多)</option>
-              <option>12:00 - 13:00 (空き: 少)</option>
-              <option selected>13:00 - 14:00 (空き: 少)</option>
-              <option>14:00 - 15:00 (空き: 多)</option>
-              <option>15:00 - 16:00 (空き: 多)</option>
-            </select>
-          </div>
-          
-          <div class="card" style="margin-top: 15px; padding: 10px; background-color: #f8f9fa;">
-            <h4 style="margin-top: 0; font-size: 16px;">時間枠の混雑状況</h4>
-            <div style="margin-bottom: 10px;">
-              <div style="display: flex; align-items: center; margin-bottom: 5px;">
-                <span style="width: 120px;">10:00-11:00</span>
-                <div style="flex-grow: 1; background-color: #e9ecef; height: 10px; border-radius: 5px;">
-                  <div style="width: 30%; background-color: #28a745; height: 10px; border-radius: 5px;"></div>
-                </div>
-                <span style="margin-left: 10px;">30%</span>
-              </div>
-              <div style="display: flex; align-items: center; margin-bottom: 5px;">
-                <span style="width: 120px;">11:00-12:00</span>
-                <div style="flex-grow: 1; background-color: #e9ecef; height: 10px; border-radius: 5px;">
-                  <div style="width: 45%; background-color: #28a745; height: 10px; border-radius: 5px;"></div>
-                </div>
-                <span style="margin-left: 10px;">45%</span>
-              </div>
-              <div style="display: flex; align-items: center; margin-bottom: 5px;">
-                <span style="width: 120px;">12:00-13:00</span>
-                <div style="flex-grow: 1; background-color: #e9ecef; height: 10px; border-radius: 5px;">
-                  <div style="width: 60%; background-color: #ffc107; height: 10px; border-radius: 5px;"></div>
-                </div>
-                <span style="margin-left: 10px;">60%</span>
-              </div>
-              <div style="display: flex; align-items: center; margin-bottom: 5px;">
-                <span style="width: 120px;">13:00-14:00</span>
-                <div style="flex-grow: 1; background-color: #e9ecef; height: 10px; border-radius: 5px;">
-                  <div style="width: 85%; background-color: #dc3545; height: 10px; border-radius: 5px;"></div>
-                </div>
-                <span style="margin-left: 10px;">85%</span>
-              </div>
-              <div style="display: flex; align-items: center; margin-bottom: 5px;">
-                <span style="width: 120px;">14:00-15:00</span>
-                <div style="flex-grow: 1; background-color: #e9ecef; height: 10px; border-radius: 5px;">
-                  <div style="width: 50%; background-color: #ffc107; height: 10px; border-radius: 5px;"></div>
-                </div>
-                <span style="margin-left: 10px;">50%</span>
-              </div>
-              <div style="display: flex; align-items: center;">
-                <span style="width: 120px;">15:00-16:00</span>
-                <div style="flex-grow: 1; background-color: #e9ecef; height: 10px; border-radius: 5px;">
-                  <div style="width: 20%; background-color: #28a745; height: 10px; border-radius: 5px;"></div>
-                </div>
-                <span style="margin-left: 10px;">20%</span>
-              </div>
-            </div>
-            <p style="margin-bottom: 0; font-size: 12px; color: #6c757d;">※混雑状況は予約状況に基づく予測です。空いている時間枠を選ぶとスムーズに受け取れます。</p>
-          </div>
-          
-          <div class="alert alert-info">
-            <p>※受取時間枠に遅れた場合でも、当日中であれば商品をお受け取りいただけます。ただし、混雑状況によりお待ちいただく場合がございます。</p>
-          </div>
-        </div>
-        
-        <div class="card" style="margin-top: 20px;">
-          <h3>連絡先情報</h3>
-          
-          <div class="form-group">
-            <label for="name">お名前</label>
-            <input type="text" id="name" class="form-control" value="山田 太郎" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="email">メールアドレス</label>
-            <input type="email" id="email" class="form-control" value="yamada@example.com" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="phone">電話番号</label>
-            <input type="tel" id="phone" class="form-control" value="090-1234-5678" required>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col" style="flex: 1;">
-        <div class="card">
-          <h3>支払い情報</h3>
-          
-          <div class="form-group">
-            <label>支払い方法</label>
-            <div>
-              <div style="margin-bottom: 10px;">
-                <input type="radio" id="credit-card" name="payment-method" checked>
-                <label for="credit-card" style="display: inline;">クレジットカード</label>
-              </div>
-              <div>
-                <input type="radio" id="convenience-store" name="payment-method">
-                <label for="convenience-store" style="display: inline;">コンビニ決済</label>
-              </div>
-            </div>
-          </div>
-          
-          <div id="credit-card-form">
-            <div class="form-group">
-              <label for="card-number">カード番号</label>
-              <input type="text" id="card-number" class="form-control" placeholder="1234 5678 9012 3456">
-            </div>
-            
-            <div style="display: flex; gap: 10px;">
-              <div class="form-group" style="flex: 1;">
-                <label for="expiry">有効期限</label>
-                <input type="text" id="expiry" class="form-control" placeholder="MM/YY">
-              </div>
-              
-              <div class="form-group" style="flex: 1;">
-                <label for="cvv">セキュリティコード</label>
-                <input type="text" id="cvv" class="form-control" placeholder="123">
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label for="name-on-card">カード名義</label>
-              <input type="text" id="name-on-card" class="form-control" placeholder="TARO YAMADA">
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <input type="checkbox" id="terms" checked>
-            <label for="terms" style="display: inline;"><a href="#">利用規約</a>に同意します</label>
-          </div>
-          
-          <button class="btn btn-primary" style="width: 100%; padding: 15px; font-size: 16px; margin-top: 20px;">注文を確定する</button>
-          
-          <p style="margin-top: 20px; font-size: 14px; color: #666;">※注文確定後、QRコードが発行されます。会場でQRコードを提示して商品をお受け取りください。</p>
-          <p style="font-size: 14px; color: #666;">※このデモでは実際の決済は行われません。</p>
-        </div>
-        
-        <div class="card" style="margin-top: 20px;">
-          <h3>注文サマリー</h3>
-          <table style="width: 100%;">
-            <tr>
-              <td>小計</td>
-              <td style="text-align: right;">¥11,100</td>
-            </tr>
-            <tr>
-              <td>システム利用料</td>
-              <td style="text-align: right;">¥330</td>
-            </tr>
-            <tr style="font-weight: bold; font-size: 18px;">
-              <td>合計</td>
-              <td style="text-align: right;">¥11,430</td>
-            </tr>
-          </table>
-        </div>
-      </div>
     </div>
+
+    <form id="checkout-form">
+        <div class="card mb-6">
+            <h3 class="card-title text-xl mb-3">受取時間</h3>
+            <div id="timeslot-selection-container">
+                <p>受取時間を読み込み中...</p>
+            </div>
+        </div>
+        <div id="checkout-error-message" class="alert alert-danger" style="display: none; margin-bottom: 1rem;"></div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">注文を確定する</button>
+    </form>
   </div>
-  
+
   <div class="footer">
     <p>&copy; 2025 BOPIS System</p>
   </div>
+  <script type="module" src="../../frontend/js/pages/customer/checkout-page.js"></script>
 </body>
 </html>

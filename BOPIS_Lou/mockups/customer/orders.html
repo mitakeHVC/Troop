@@ -8,138 +8,26 @@
 </head>
 <body>
   <div class="header">
-    <h1>BOPIS</h1>
+    <h1>BOPIS - 注文履歴</h1>
     <div>
+      <a href="products.html" class="btn" style="margin-right: 10px;">商品一覧</a>
       <a href="cart.html" class="btn notification" style="margin-right: 10px;">
-        カート
-        <span class="notification-badge">3</span>
+        カート <span class="notification-badge" style="display: none;">0</span>
       </a>
-      <a href="tenants.html" class="btn" style="margin-right: 10px;">テナント選択</a>
-      <a href="login.html" class="btn">ログアウト</a>
+      <a href="#" id="logout-button" class="btn">ログアウト</a>
     </div>
   </div>
-  
+
   <div class="container">
-    <h2>注文履歴</h2>
-    
-    <div class="card">
-      <div style="margin-bottom: 20px;">
-        <input type="text" class="form-control" placeholder="注文番号で検索" style="width: 300px; display: inline-block; margin-right: 10px;">
-        <button class="btn">検索</button>
-      </div>
-      
-      <table class="table">
-        <thead>
-          <tr>
-            <th>注文番号</th>
-            <th>テナント</th>
-            <th>注文日</th>
-            <th>合計金額</th>
-            <th>受取時間枠</th>
-            <th>ステータス</th>
-            <th>操作</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>ORD-20250530-12345</td>
-            <td>音楽ライブイベントA</td>
-            <td>2025/05/30</td>
-            <td>¥11,430</td>
-            <td>2025/06/15 13:00-14:00</td>
-            <td><span class="badge badge-success">確認済み</span></td>
-            <td>
-              <a href="order-detail.html?id=12345" class="btn" style="padding: 5px 10px; margin-right: 5px;">詳細</a>
-              <a href="order-confirmation.html?id=12345" class="btn btn-primary" style="padding: 5px 10px;">QRコード表示</a>
-            </td>
-          </tr>
-          <tr>
-            <td>ORD-20250520-67890</td>
-            <td>アニメイベントB</td>
-            <td>2025/05/20</td>
-            <td>¥8,580</td>
-            <td>2025/07/10 11:00-12:00</td>
-            <td><span class="badge badge-success">確認済み</span></td>
-            <td>
-              <a href="order-detail.html?id=67890" class="btn" style="padding: 5px 10px; margin-right: 5px;">詳細</a>
-              <a href="order-confirmation.html?id=67890" class="btn btn-primary" style="padding: 5px 10px;">QRコード表示</a>
-            </td>
-          </tr>
-          <tr>
-            <td>ORD-20250510-24680</td>
-            <td>舞台イベントC</td>
-            <td>2025/05/10</td>
-            <td>¥5,280</td>
-            <td>2025/08/05 14:00-15:00</td>
-            <td><span class="badge badge-warning">準備中</span></td>
-            <td>
-              <a href="order-detail.html?id=24680" class="btn" style="padding: 5px 10px; margin-right: 5px;">詳細</a>
-              <a href="#" class="btn btn-secondary" style="padding: 5px 10px;" disabled>準備中</a>
-            </td>
-          </tr>
-          <tr>
-            <td>ORD-20250415-13579</td>
-            <td>音楽ライブイベントX</td>
-            <td>2025/04/15</td>
-            <td>¥7,150</td>
-            <td>2025/04/20 12:00-13:00</td>
-            <td><span class="badge badge-secondary">完了</span></td>
-            <td>
-              <a href="order-detail.html?id=13579" class="btn" style="padding: 5px 10px;">詳細</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    
-    <div class="card" style="margin-top: 30px;">
-      <h3>過去の注文</h3>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>注文番号</th>
-            <th>テナント</th>
-            <th>注文日</th>
-            <th>合計金額</th>
-            <th>受取日時</th>
-            <th>ステータス</th>
-            <th>操作</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>ORD-20250320-97531</td>
-            <td>アニメイベントY</td>
-            <td>2025/03/20</td>
-            <td>¥9,680</td>
-            <td>2025/03/25 15:00-16:00</td>
-            <td><span class="badge badge-secondary">完了</span></td>
-            <td>
-              <a href="order-detail.html?id=97531" class="btn" style="padding: 5px 10px;">詳細</a>
-            </td>
-          </tr>
-          <tr>
-            <td>ORD-20250215-86420</td>
-            <td>音楽ライブイベントZ</td>
-            <td>2025/02/15</td>
-            <td>¥12,980</td>
-            <td>2025/02/20 10:00-11:00</td>
-            <td><span class="badge badge-secondary">完了</span></td>
-            <td>
-              <a href="order-detail.html?id=86420" class="btn" style="padding: 5px 10px;">詳細</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      
-      <div style="text-align: center; margin-top: 20px;">
-        <button class="btn">もっと見る</button>
-      </div>
+    <h2 class="text-2xl font-semibold mb-6">注文履歴</h2>
+    <div id="order-history-container">
+      <p>注文履歴を読み込み中です...</p>
     </div>
   </div>
-  
+
   <div class="footer">
     <p>&copy; 2025 BOPIS System</p>
   </div>
+  <script type="module" src="../../frontend/js/pages/customer/orders-page.js"></script>
 </body>
 </html>
