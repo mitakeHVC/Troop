@@ -11,37 +11,35 @@
     <h1>BOPIS</h1>
   </div>
   
-  <div class="container">
-    <div class="card" style="max-width: 500px; margin: 50px auto;">
-      <h2>ログイン</h2>
-      <form>
+  <div class="container" style="max-width: 400px; margin-top: 50px;">
+    <div class="card">
+      <h2 style="text-align: center; margin-bottom: 20px;">顧客ログイン</h2>
+      <form id="customer-login-form">
         <div class="form-group">
-          <label for="email">メールアドレス</label>
-          <input type="email" id="email" class="form-control" required>
+          <label for="username">メールアドレス</label>
+          <input type="email" id="username" name="username" class="form-control" placeholder="例: user@example.com" required>
         </div>
         <div class="form-group">
           <label for="password">パスワード</label>
-          <input type="password" id="password" class="form-control" required>
+          <input type="password" id="password" name="password" class="form-control" placeholder="パスワードを入力" required>
         </div>
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <div>
-            <input type="checkbox" id="remember" style="margin-right: 5px;">
-            <label for="remember" style="display: inline;">ログイン情報を記憶する</label>
-          </div>
-          <a href="#" style="font-size: 14px;">パスワードをお忘れですか？</a>
-        </div>
-        <div style="margin-top: 20px;">
-          <button type="submit" class="btn btn-primary" style="width: 100%;">ログイン</button>
-        </div>
+        <p id="login-error" style="color: var(--danger-color); margin-top: 10px; min-height: 1.2em;"></p>
+        <button type="submit" class="btn btn-primary btn-block" style="margin-top: 20px;">ログイン</button>
       </form>
-      <div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;">
-        <p>アカウントをお持ちでない方は<a href="register.html">こちら</a>から登録できます。</p>
-      </div>
+      <p style="text-align: center; margin-top: 20px;">
+        アカウントをお持ちでないですか？ <a href="register.html">新規登録</a>
+      </p>
+      <p style="text-align: center; margin-top: 10px; font-size: 0.9em;">
+        <a href="../admin/login.html">管理者様はこちら</a> |
+        <a href="../picker/login.html">ピッカー様はこちら</a> |
+        <a href="../counter/login.html">カウンター様はこちら</a>
+      </p>
     </div>
   </div>
   
-  <div class="footer">
+  <div class="footer" style="margin-top: 50px;">
     <p>&copy; 2025 BOPIS System</p>
   </div>
+  <script type="module" src="../../frontend/js/pages/customer/login-page.js"></script>
 </body>
 </html>
