@@ -9,293 +9,76 @@
 <body>
   <div class="header">
     <h1>BOPIS - ピッカー専用</h1>
-    <div>
-      <span style="margin-right: 15px;">ようこそ、佐藤ピッカー様</span>
-      <span style="margin-right: 15px;">テナント: 音楽ライブイベントA</span>
-      <div class="badge badge-warning" id="offline-indicator" style="display: none; margin-right: 15px; padding: 5px 10px;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 5px;">
-          <path d="M10.706 3.294A12.545 12.545 0 0 0 8 3C5.259 3 2.723 3.882.663 5.379a.485.485 0 0 0-.048.736.518.518 0 0 0 .668.05A11.448 11.448 0 0 1 8 4c.63 0 1.249.05 1.852.148l.854-.854zM8 6c-1.905 0-3.68.56-5.166 1.526a.48.48 0 0 0-.063.745.525.525 0 0 0 .652.065 8.448 8.448 0 0 1 3.51-1.27L8 6zm2.596 1.404.785-.785c.63.24 1.227.545 1.785.907a.482.482 0 0 1 .063.745.525.525 0 0 1-.652.065 8.462 8.462 0 0 0-1.98-.932zM8 10l.933-.933a6.455 6.455 0 0 1 2.013.637c.285.145.326.524.1.75l-.015.015a.532.532 0 0 1-.611.09A5.478 5.478 0 0 0 8 10zm4.905-4.905.747-.747c.59.3 1.153.645 1.685 1.03a.485.485 0 0 1 .047.737.518.518 0 0 1-.668.05 11.493 11.493 0 0 0-1.811-1.07zM9.02 11.78c.238.14.236.464.04.66l-.707.706a.5.5 0 0 1-.707 0l-.707-.707c-.195-.195-.197-.518.04-.66A1.99 1.99 0 0 1 8 11.5c.374 0 .723.102 1.021.28zm4.355-9.905a.53.53 0 0 1 .75.75l-10.75 10.75a.53.53 0 0 1-.75-.75l10.75-10.75z"/>
-        </svg>
-        オフラインモード
+    <div class="flex items-center">
+      <span id="picker-name" class="mr-3">ピッカー様</span>
+      <span class="mr-3 text-sm">|</span>
+      <span id="picker-tenant-name" class="mr-4 text-sm badge badge-info">テナント: ...</span>
+
+      <div id="picker-offline-indicator" class="badge badge-danger items-center" style="display: none; margin-right: 10px; padding: 5px 8px; height: fit-content;">
+         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 5px;"><path d="M10.706 3.294A12.545 12.545 0 0 0 8 3C5.259 3 2.723 3.882.663 5.379a.485.485 0 0 0-.048.736.518.518 0 0 0 .668.05A11.448 11.448 0 0 1 8 4c.63 0 1.249.05 1.852.148l.854-.854zM8 6c-1.905 0-3.68.56-5.166 1.526a.48.48 0 0 0-.063.745.525.525 0 0 0 .652.065A8.448 8.448 0 0 1 8 7.005l.002.002.807.807a.532.532 0 0 1 .07.643.48.48 0 0 1-.593.144A6.455 6.455 0 0 0 8 9l-.933.933a6.455 6.455 0 0 0-2.013-.637c-.285-.145-.326-.524-.1-.75l.015-.015a.532.532 0 0 1 .611-.09A5.478 5.478 0 0 1 8 8c.058 0 .117.002.175.005l.825-.825A.5.5 0 0 1 9.5 7a.5.5 0 0 1 .354.146l.707.707a.5.5 0 0 1 0 .708l-.707.707-.001.001a.5.5 0 0 1-.354.146.5.5 0 0 1-.354-.146L8.146 8.146A.5.5 0 0 1 8 8a.5.5 0 0 1-.146-.354L7.146 7a.5.5 0 0 1 .146-.354l.001-.001zM8 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0-3a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/><path d="M1.146 1.146a.5.5 0 0 1 .708 0l13 13a.5.5 0 0 1-.708.708l-13-13a.5.5 0 0 1 0-.708z"/></svg>
+         オフライン
       </div>
-      <a href="login.html" class="btn">ログアウト</a>
+      <button id="picker-sync-button" class="btn btn-sm btn-info" style="margin-right: 10px; height: fit-content;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 5px;"><path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/><path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/></svg>
+          同期
+      </button>
+      <a href="#" id="picker-logout-button" class="btn btn-sm btn-danger">ログアウト</a>
     </div>
   </div>
   
-  <div class="container">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-      <h2>ピッカーダッシュボード</h2>
-      <div style="display: flex; align-items: center;">
-        <button id="sync-button" class="btn" style="margin-right: 10px;">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 5px;">
-            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
-            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
-          </svg>
-          データ同期
-        </button>
-        <span class="badge badge-primary" style="font-size: 16px; padding: 8px 15px; margin-right: 10px;">
-          処理待ち: 5件
-        </span>
-        <span class="badge badge-success" style="font-size: 16px; padding: 8px 15px;">
-          本日完了: 12件
-        </span>
+  <div class="container py-6">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-3xl font-semibold">ピッカーダッシュボード</h2>
+      <div class="flex items-center gap-4">
+        <div class="text-center">
+            <span class="block text-sm text-gray-600">処理待ち</span>
+            <span id="stat-pending-orders" class="text-2xl font-bold text-warning">...</span>
+        </div>
+        <div class="text-center">
+            <span class="block text-sm text-gray-600">本日完了</span>
+            <span id="stat-completed-today" class="text-2xl font-bold text-success">...</span>
+        </div>
+        <!-- Data sync button from mockup if needed later -->
       </div>
     </div>
     
-    <div class="alert alert-info">
-      <p><strong>お知らせ:</strong> 13:00-14:00の時間枠の注文が増えています。優先的に処理をお願いします。</p>
+    <div class="alert alert-info mb-6">
+      <p><strong>お知らせ:</strong> 優先度の高い注文から処理をお願いします。</p>
     </div>
-    
-    <div class="row">
-      <div class="col" style="flex: 2;">
-        <div class="card">
-          <h3>新規注文通知</h3>
-          <div style="max-height: 300px; overflow-y: auto;">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>注文番号</th>
-                  <th>受取時間枠</th>
-                  <th>商品数</th>
-                  <th>通知時間</th>
-                  <th>操作</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr style="background-color: #fff3cd;">
-                  <td>ORD-20250530-12345</td>
-                  <td>13:00-14:00</td>
-                  <td>3種類 6点</td>
-                  <td>1分前</td>
-                  <td>
-                    <a href="order-detail.html?id=12345" class="btn btn-primary" style="padding: 5px 10px;">処理開始</a>
-                  </td>
-                </tr>
-                <tr style="background-color: #fff3cd;">
-                  <td>ORD-20250530-23456</td>
-                  <td>13:00-14:00</td>
-                  <td>2種類 2点</td>
-                  <td>3分前</td>
-                  <td>
-                    <a href="order-detail.html?id=23456" class="btn btn-primary" style="padding: 5px 10px;">処理開始</a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>ORD-20250530-34567</td>
-                  <td>14:00-15:00</td>
-                  <td>4種類 5点</td>
-                  <td>5分前</td>
-                  <td>
-                    <a href="order-detail.html?id=34567" class="btn btn-primary" style="padding: 5px 10px;">処理開始</a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>ORD-20250530-45678</td>
-                  <td>14:00-15:00</td>
-                  <td>1種類 1点</td>
-                  <td>7分前</td>
-                  <td>
-                    <a href="order-detail.html?id=45678" class="btn btn-primary" style="padding: 5px 10px;">処理開始</a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>ORD-20250530-56789</td>
-                  <td>15:00-16:00</td>
-                  <td>2種類 3点</td>
-                  <td>10分前</td>
-                  <td>
-                    <a href="order-detail.html?id=56789" class="btn btn-primary" style="padding: 5px 10px;">処理開始</a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="card shadow-lg">
+            <h3 class="text-xl font-semibold mb-4">新規注文 (ピッキング待ち)</h3>
+            <div class="overflow-x-auto max-h-96 overflow-y-auto">
+                <table class="table w-full text-sm">
+                    <thead>
+                      <tr><th>注文ID</th><th>受取時間枠</th><th>商品数</th><th>通知時間</th><th>操作</th></tr>
+                    </thead>
+                    <tbody id="new-orders-tbody">
+                      <tr><td colspan="5" class="text-center py-4">読み込み中...</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        
-        <div class="card" style="margin-top: 20px;">
-          <h3>処理中の注文</h3>
-          <div style="max-height: 300px; overflow-y: auto;">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>注文番号</th>
-                  <th>受取時間枠</th>
-                  <th>商品数</th>
-                  <th>処理開始時間</th>
-                  <th>ステータス</th>
-                  <th>操作</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>ORD-20250530-67890</td>
-                  <td>13:00-14:00</td>
-                  <td>5種類 8点</td>
-                  <td>12:05</td>
-                  <td><span class="badge badge-warning">処理中</span></td>
-                  <td>
-                    <a href="order-detail.html?id=67890" class="btn" style="padding: 5px 10px; margin-right: 5px;">詳細</a>
-                    <a href="complete.html?id=67890" class="btn btn-success" style="padding: 5px 10px;">完了</a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>ORD-20250530-78901</td>
-                  <td>13:00-14:00</td>
-                  <td>3種類 4点</td>
-                  <td>12:08</td>
-                  <td><span class="badge badge-warning">処理中</span></td>
-                  <td>
-                    <a href="order-detail.html?id=78901" class="btn" style="padding: 5px 10px; margin-right: 5px;">詳細</a>
-                    <a href="complete.html?id=78901" class="btn btn-success" style="padding: 5px 10px;">完了</a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div class="card shadow-lg">
+            <h3 class="text-xl font-semibold mb-4">処理中の注文</h3>
+             <div class="overflow-x-auto max-h-96 overflow-y-auto">
+                <table class="table w-full text-sm">
+                    <thead>
+                      <tr><th>注文ID</th><th>受取時間枠</th><th>商品数</th><th>ステータス</th><th>操作</th></tr>
+                    </thead>
+                    <tbody id="processing-orders-tbody">
+                      <tr><td colspan="5" class="text-center py-4">読み込み中...</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+        <!-- Future: Completed orders list could go here -->
       </div>
-      
-      <div class="col" style="flex: 1;">
-        <div class="card">
-          <h3>ピッカー情報</h3>
-          <div style="text-align: center; margin-bottom: 20px;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="#4a90e2" viewBox="0 0 16 16">
-              <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-            </svg>
-            <h4 style="margin-top: 10px;">佐藤 太郎</h4>
-            <p>ピッカーID: P12345</p>
-          </div>
-          
-          <table class="table">
-            <tr>
-              <th>ステータス</th>
-              <td>
-                <select class="form-control">
-                  <option selected>対応可能</option>
-                  <option>休憩中</option>
-                  <option>退勤</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <th>担当レーン</th>
-              <td>レーン1, レーン2</td>
-            </tr>
-            <tr>
-              <th>本日の処理数</th>
-              <td>12件</td>
-            </tr>
-            <tr>
-              <th>平均処理時間</th>
-              <td>4分30秒/件</td>
-            </tr>
-          </table>
-        </div>
-        
-        <div class="card" style="margin-top: 20px;">
-          <h3>受取時間枠別注文数</h3>
-          <table class="table">
-            <tr>
-              <th>時間枠</th>
-              <th>注文数</th>
-              <th>処理済</th>
-            </tr>
-            <tr>
-              <td>10:00-11:00</td>
-              <td>5件</td>
-              <td>5件</td>
-            </tr>
-            <tr>
-              <td>11:00-12:00</td>
-              <td>8件</td>
-              <td>7件</td>
-            </tr>
-            <tr>
-              <td>12:00-13:00</td>
-              <td>10件</td>
-              <td>0件</td>
-            </tr>
-            <tr style="background-color: #fff3cd;">
-              <td>13:00-14:00</td>
-              <td>15件</td>
-              <td>0件</td>
-            </tr>
-            <tr>
-              <td>14:00-15:00</td>
-              <td>12件</td>
-              <td>0件</td>
-            </tr>
-            <tr>
-              <td>15:00-16:00</td>
-              <td>7件</td>
-              <td>0件</td>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </div>
-    
-    <div class="card" style="margin-top: 20px;">
-      <h3>完了した注文</h3>
-      <div style="max-height: 300px; overflow-y: auto;">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>注文番号</th>
-              <th>受取時間枠</th>
-              <th>商品数</th>
-              <th>処理完了時間</th>
-              <th>処理時間</th>
-              <th>ステータス</th>
-              <th>操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>ORD-20250530-11111</td>
-              <td>10:00-11:00</td>
-              <td>2種類 3点</td>
-              <td>10:15</td>
-              <td>5分20秒</td>
-              <td><span class="badge badge-success">完了</span></td>
-              <td>
-                <a href="order-detail.html?id=11111" class="btn" style="padding: 5px 10px;">詳細</a>
-              </td>
-            </tr>
-            <tr>
-              <td>ORD-20250530-22222</td>
-              <td>10:00-11:00</td>
-              <td>1種類 1点</td>
-              <td>10:20</td>
-              <td>2分10秒</td>
-              <td><span class="badge badge-success">完了</span></td>
-              <td>
-                <a href="order-detail.html?id=22222" class="btn" style="padding: 5px 10px;">詳細</a>
-              </td>
-            </tr>
-            <tr>
-              <td>ORD-20250530-33333</td>
-              <td>11:00-12:00</td>
-              <td>3種類 5点</td>
-              <td>11:05</td>
-              <td>6分45秒</td>
-              <td><span class="badge badge-success">完了</span></td>
-              <td>
-                <a href="order-detail.html?id=33333" class="btn" style="padding: 5px 10px;">詳細</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      
-      <div style="text-align: center; margin-top: 20px;">
-        <button class="btn">もっと見る</button>
-      </div>
-    </div>
-  </div>
   
   <div class="footer">
     <p>&copy; 2025 BOPIS System</p>
   </div>
+  <script type="module" src="../../frontend/js/pages/picker/dashboard-page.js"></script>
 </body>
 </html>

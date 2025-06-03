@@ -3,221 +3,72 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>注文詳細 - BOPIS</title>
+  <title>ピッキング注文詳細 - BOPIS</title>
   <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
   <div class="header">
     <h1>BOPIS - ピッカー専用</h1>
-    <div>
-      <span style="margin-right: 15px;">ようこそ、佐藤ピッカー様</span>
-      <span style="margin-right: 15px;">テナント: 音楽ライブイベントA</span>
-      <div class="badge badge-warning" id="offline-indicator" style="display: none; margin-right: 15px; padding: 5px 10px;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 5px;">
-          <path d="M10.706 3.294A12.545 12.545 0 0 0 8 3C5.259 3 2.723 3.882.663 5.379a.485.485 0 0 0-.048.736.518.518 0 0 0 .668.05A11.448 11.448 0 0 1 8 4c.63 0 1.249.05 1.852.148l.854-.854zM8 6c-1.905 0-3.68.56-5.166 1.526a.48.48 0 0 0-.063.745.525.525 0 0 0 .652.065 8.448 8.448 0 0 1 3.51-1.27L8 6zm2.596 1.404.785-.785c.63.24 1.227.545 1.785.907a.482.482 0 0 1 .063.745.525.525 0 0 1-.652.065 8.462 8.462 0 0 0-1.98-.932zM8 10l.933-.933a6.455 6.455 0 0 1 2.013.637c.285.145.326.524.1.75l-.015.015a.532.532 0 0 1-.611.09A5.478 5.478 0 0 0 8 10zm4.905-4.905.747-.747c.59.3 1.153.645 1.685 1.03a.485.485 0 0 1 .047.737.518.518 0 0 1-.668.05 11.493 11.493 0 0 0-1.811-1.07zM9.02 11.78c.238.14.236.464.04.66l-.707.706a.5.5 0 0 1-.707 0l-.707-.707c-.195-.195-.197-.518.04-.66A1.99 1.99 0 0 1 8 11.5c.374 0 .723.102 1.021.28zm4.355-9.905a.53.53 0 0 1 .75.75l-10.75 10.75a.53.53 0 0 1-.75-.75l10.75-10.75z"/>
-        </svg>
-        オフラインモード
-      </div>
-      <a href="dashboard.html" class="btn" style="margin-right: 10px;">ダッシュボード</a>
-      <a href="login.html" class="btn">ログアウト</a>
+    <div class="flex items-center">
+      <span id="picker-name" class="mr-3">ピッカー様</span>
+      <span class="mr-3 text-sm">|</span>
+      <span id="picker-tenant-name" class="mr-4 text-sm badge badge-info">テナント: ...</span>
+      <a href="dashboard.html" class="btn btn-sm btn-secondary" style="margin-right:10px;">ダッシュボードへ戻る</a>
+      <a href="#" id="picker-logout-button" class="btn btn-sm btn-danger">ログアウト</a>
     </div>
   </div>
   
-  <div class="container">
-    <div style="margin-bottom: 20px;">
-      <a href="dashboard.html" class="btn">&lt; ダッシュボードに戻る</a>
+  <div class="container py-6">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-3xl font-semibold">注文詳細 (ピッキング)</h2>
+      <a href="dashboard.html" class="btn btn-outline btn-sm">&laquo; ダッシュボードへ</a>
+    </div>
+
+    <div id="page-error-message" class="alert alert-danger" style="display:none;"></div>
+
+    <div class="card shadow-lg mb-6">
+        <div class="card-body p-5">
+            <h3 class="text-xl font-semibold mb-3">注文情報</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <p><strong>注文ID:</strong> <span id="order-id-display">読み込み中...</span></p>
+                <p><strong>顧客名:</strong> <span id="customer-name-display">読み込み中...</span></p>
+                <p><strong>受取時間枠:</strong> <span id="pickup-slot-display">読み込み中...</span></p>
+                <p><strong>ステータス:</strong> <span id="order-status-display" class="font-medium">読み込み中...</span></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-lg">
+        <div class="card-header bg-gray-50"><h3 class="text-xl font-semibold">商品リスト</h3></div>
+        <div class="card-body p-0">
+            <div class="overflow-x-auto">
+                <table class="table w-full text-sm">
+                    <thead>
+                      <tr>
+                        <th style="width:80px;">画像</th>
+                        <th>商品名</th>
+                        <th>SKU</th>
+                        <th class="text-center">注文数量</th>
+                        <!-- <th class="text-center" style="width:100px;">ピック数量</th> -->
+                      </tr>
+                    </thead>
+                    <tbody id="order-items-tbody">
+                      <!-- Items loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
     
-    <div class="card">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-        <h2>注文詳細: ORD-20250530-12345</h2>
-        <span class="badge badge-warning" style="font-size: 16px; padding: 8px 15px;">処理中</span>
-      </div>
-      
-      <div class="row">
-        <div class="col" style="flex: 1;">
-          <h3>注文情報</h3>
-          <table class="table">
-            <tr>
-              <th style="width: 30%;">注文番号</th>
-              <td>ORD-20250530-12345</td>
-            </tr>
-            <tr>
-              <th>注文日時</th>
-              <td>2025/05/30 11:45</td>
-            </tr>
-            <tr>
-              <th>受取時間枠</th>
-              <td><strong>2025/06/15 13:00-14:00</strong></td>
-            </tr>
-            <tr>
-              <th>合計金額</th>
-              <td>¥11,430 (税込)</td>
-            </tr>
-          </table>
-        </div>
-        
-        <div class="col" style="flex: 1;">
-          <h3>ピッキング情報</h3>
-          <table class="table">
-            <tr>
-              <th style="width: 30%;">ステータス</th>
-              <td>
-                <select class="form-control">
-                  <option>未処理</option>
-                  <option selected>処理中</option>
-                  <option>準備完了</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <th>処理開始時間</th>
-              <td>2025/05/30 12:05</td>
-            </tr>
-            <tr>
-              <th>割り当てレーン</th>
-              <td>レーン2</td>
-            </tr>
-            <tr>
-              <th>優先度</th>
-              <td><span class="badge badge-danger">高</span></td>
-            </tr>
-          </table>
-        </div>
-      </div>
+    <div id="order-actions-container" class="mt-6 text-center">
+        <!-- Action buttons loaded here -->
     </div>
-    
-    <div class="card" style="margin-top: 20px;">
-      <h3>ピッキングリスト</h3>
-      <table class="table">
-        <thead>
-          <tr>
-            <th style="width: 80px;">商品</th>
-            <th>商品名</th>
-            <th style="width: 100px;">単価</th>
-            <th style="width: 80px;">数量</th>
-            <th style="width: 120px;">在庫場所</th>
-            <th style="width: 120px;">ステータス</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <img src="../images/product1.jpg" alt="ライブロゴTシャツ" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
-            </td>
-            <td>
-              <h4 style="margin: 0 0 5px 0;">ライブロゴTシャツ</h4>
-              <p style="margin: 0; font-size: 14px; color: #666;">サイズ: M</p>
-              <p style="margin: 0; font-size: 14px; color: #666;">商品ID: PRD-001-M</p>
-            </td>
-            <td>¥3,500</td>
-            <td>1</td>
-            <td>棚A-3-2</td>
-            <td>
-              <select class="form-control" style="padding: 5px; height: auto;">
-                <option>未ピッキング</option>
-                <option selected>ピッキング済</option>
-                <option>在庫なし</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img src="../images/product2.jpg" alt="ツアータオル" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
-            </td>
-            <td>
-              <h4 style="margin: 0 0 5px 0;">ツアータオル</h4>
-              <p style="margin: 0; font-size: 14px; color: #666;">商品ID: PRD-002</p>
-            </td>
-            <td>¥2,000</td>
-            <td>2</td>
-            <td>棚B-1-4</td>
-            <td>
-              <select class="form-control" style="padding: 5px; height: auto;">
-                <option>未ピッキング</option>
-                <option selected>ピッキング済</option>
-                <option>在庫なし</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img src="../images/product3.jpg" alt="アクリルキーホルダー" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
-            </td>
-            <td>
-              <h4 style="margin: 0 0 5px 0;">アクリルキーホルダー</h4>
-              <p style="margin: 0; font-size: 14px; color: #666;">商品ID: PRD-003</p>
-            </td>
-            <td>¥1,200</td>
-            <td>3</td>
-            <td>棚C-2-1</td>
-            <td>
-              <select class="form-control" style="padding: 5px; height: auto;">
-                <option>未ピッキング</option>
-                <option>ピッキング済</option>
-                <option selected>在庫なし</option>
-              </select>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      
-      <div style="margin-top: 20px;">
-        <h4>在庫なし商品の対応</h4>
-        <div class="form-group">
-          <label for="out-of-stock-action">アクリルキーホルダーの対応</label>
-          <select id="out-of-stock-action" class="form-control">
-            <option>選択してください</option>
-            <option selected>類似商品に置き換え</option>
-            <option>注文から削除</option>
-            <option>後日発送</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="out-of-stock-note">備考</label>
-          <textarea id="out-of-stock-note" class="form-control" rows="3">別デザインのキーホルダー（PRD-004）に置き換え</textarea>
-        </div>
-      </div>
-    </div>
-    
-    <div class="card" style="margin-top: 20px;">
-      <h3>梱包情報</h3>
-      <div class="form-group">
-        <label for="package-type">梱包タイプ</label>
-        <select id="package-type" class="form-control">
-          <option>選択してください</option>
-          <option selected>紙袋 (中)</option>
-          <option>紙袋 (大)</option>
-          <option>段ボール箱 (小)</option>
-          <option>段ボール箱 (中)</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="package-note">梱包備考</label>
-        <textarea id="package-note" class="form-control" rows="3">Tシャツは折り畳まずに梱包</textarea>
-      </div>
-      
-      <div class="form-group">
-        <label for="package-label">荷札ラベル</label>
-        <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px;">
-          <h3 style="margin-top: 0;">ORD-20250530-12345</h3>
-          <p>受取時間枠: 2025/06/15 13:00-14:00</p>
-          <p>レーン: 2</p>
-          <p>商品点数: 3種類 6点</p>
-          <p>ピッカー: 佐藤</p>
-        </div>
-        <button class="btn">ラベル印刷</button>
-      </div>
-    </div>
-    
-    <div style="margin-top: 30px; text-align: center;">
-      <a href="dashboard.html" class="btn" style="margin-right: 10px;">キャンセル</a>
-      <a href="complete.html?id=12345" class="btn btn-success" style="padding: 15px 30px; font-size: 16px;">準備完了</a>
-    </div>
-  </div>
+
+  </div> <!-- /container -->
   
   <div class="footer">
     <p>&copy; 2025 BOPIS System</p>
   </div>
+  <script type="module" src="../../frontend/js/pages/picker/order-detail-page.js"></script>
 </body>
 </html>
