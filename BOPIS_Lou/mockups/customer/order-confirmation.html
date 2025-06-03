@@ -23,7 +23,16 @@
         </svg>
         <h2 class="text-2xl font-semibold mb-3">ご注文ありがとうございました！</h2>
         <p id="order-confirmation-message" class="text-lg mb-4">お客様の注文は正常に処理されました。</p>
-        <p id="order-id-display" class="text-md text-muted mb-4"></p>
+        <p id="order-id-display" class="text-md text-muted mb-1"></p>
+        <p id="order-total-display" class="text-md text-muted mb-1"></p>
+        <p id="order-pickup-slot-display" class="text-md text-muted mb-4"></p>
+
+        <div class="my-4">
+            <h4>受取用QRコード:</h4>
+            <img id="qr-code-image" src="" alt="Order QR Code" style="max-width: 200px; margin: auto; display: block; border: 1px solid #ccc; padding: 5px;">
+            <p id="qr-code-message" class="text-sm text-muted mt-2"></p>
+        </div>
+
         <a href="orders.html" class="btn btn-primary" style="margin-right: 10px;">注文履歴を見る</a>
         <a href="products.html" class="btn btn-secondary">お買い物を続ける</a>
     </div>
@@ -35,16 +44,54 @@
   <script type="module">
     import { logout } from '../../frontend/js/auth.js';
     import { updateCartBadgeCount } from '../../frontend/js/utils.js';
+    import { apiRequest } from '../../frontend/js/api.js'; // Added
 
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => { // Made async
         const urlParams = new URLSearchParams(window.location.search);
         const orderId = urlParams.get('orderId');
+        // const tenantId = urlParams.get('tenantId'); // Available if needed
+
         const orderIdDisplay = document.getElementById('order-id-display');
+        const orderTotalDisplay = document.getElementById('order-total-display');
+        const orderPickupSlotDisplay = document.getElementById('order-pickup-slot-display');
+        const qrCodeImage = document.getElementById('qr-code-image');
+        const qrCodeMessage = document.getElementById('qr-code-message');
+
         if (orderId && orderIdDisplay) {
             orderIdDisplay.textContent = `注文番号: ${orderId}`;
+
+            // Attempt to set QR code source
+            if (qrCodeImage) {
+                // This assumes a backend endpoint generates and serves the QR code image.
+                // Replace with actual client-side generation if preferred and a library is available.
+                qrCodeImage.src = `/api/orders/${orderId}/qr-code`; // Example backend endpoint
+                qrCodeImage.onerror = () => {
+                    if(qrCodeMessage) qrCodeMessage.textContent = 'QRコードの読み込みに失敗しました。店舗スタッフに注文番号をお伝えください。';
+                    if(qrCodeImage) qrCodeImage.style.display = 'none';
+                };
+                if(qrCodeMessage) qrCodeMessage.textContent = 'このQRコードを店舗で提示してください。';
+            }
+
+            // Fetch more order details
+            try {
+                const orderDetails = await apiRequest(`/orders/${orderId}`, 'GET', null, true);
+                if (orderDetails) {
+                    if (orderTotalDisplay) {
+                        orderTotalDisplay.textContent = `お支払い総額: ¥${Number(orderDetails.total_amount).toLocaleString()}`;
+                    }
+                    if (orderPickupSlotDisplay && orderDetails.pickup_slot) {
+                        const slotDate = new Date(orderDetails.pickup_slot.date).toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' });
+                        orderPickupSlotDisplay.textContent = `受取予定日時: ${slotDate} ${orderDetails.pickup_slot.start_time.substring(0,5)} - ${orderDetails.pickup_slot.end_time.substring(0,5)}`;
+                    }
+                }
+            } catch (error) {
+                console.warn('Failed to fetch extended order details for confirmation page:', error);
+                // Non-critical, page can still function with just orderId
+            }
         }
-        // Cart should be empty now, so update badge
-        updateCartBadgeCount();
+
+        // Cart should be empty now, or at least updated, so refresh badge
+        await updateCartBadgeCount(); // Made await
 
         const logoutButton = document.getElementById('logout-button-confirm');
         if(logoutButton) {

@@ -10,11 +10,11 @@
   <div class="header">
     <h1>BOPIS - 受付担当専用</h1>
     <div>
-      <span style="margin-right: 15px;">ようこそ、鈴木受付様</span>
-      <span style="margin-right: 15px;">テナント: 音楽ライブイベントA</span>
-      <span style="margin-right: 15px;">担当レーン: レーン2</span>
+      <span id="counter-name-display-header" style="margin-right: 15px;">ようこそ、受付担当者様</span>
+      <span id="counter-tenant-display-header" style="margin-right: 15px;">テナント: N/A</span>
+      <span id="counter-lane-display-header" style="margin-right: 15px;">担当レーン: N/A</span>
       <a href="dashboard.html" class="btn" style="margin-right: 10px;">ダッシュボード</a>
-      <a href="login.html" class="btn">ログアウト</a>
+      <a href="#" id="counter-logout-button-header" class="btn">ログアウト</a>
     </div>
   </div>
   
@@ -25,13 +25,13 @@
     
     <div class="alert alert-info" style="text-align: center; padding: 15px;">
       <h3 style="margin-top: 0;">QRコードスキャン成功</h3>
-      <p>注文番号: ORD-20250530-12345</p>
+      <p id="order-id-scanned-info">注文番号: ...</p>
     </div>
     
     <div class="card">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <h2>本人確認</h2>
-        <span class="badge badge-primary" style="font-size: 16px; padding: 8px 15px;">レーン2</span>
+        <span id="assigned-lane-info" class="badge badge-primary" style="font-size: 16px; padding: 8px 15px;">レーン...</span>
       </div>
       
       <div class="row">
@@ -40,23 +40,23 @@
           <table class="table">
             <tr>
               <th style="width: 30%;">お名前</th>
-              <td>山田 太郎</td>
+              <td id="customer-name"></td>
             </tr>
             <tr>
               <th>メールアドレス</th>
-              <td>yamada@example.com</td>
+              <td id="customer-email"></td>
             </tr>
             <tr>
               <th>電話番号</th>
-              <td>090-1234-5678</td>
+              <td id="customer-phone"></td>
             </tr>
             <tr>
               <th>注文日時</th>
-              <td>2025/05/30 11:45</td>
+              <td id="customer-order-timestamp"></td>
             </tr>
             <tr>
               <th>受取時間枠</th>
-              <td>2025/06/15 13:00-14:00</td>
+              <td id="customer-pickup-slot"></td>
             </tr>
           </table>
         </div>
@@ -66,23 +66,23 @@
           <table class="table">
             <tr>
               <th style="width: 30%;">注文番号</th>
-              <td>ORD-20250530-12345</td>
+              <td id="order-info-id"></td>
             </tr>
             <tr>
               <th>商品点数</th>
-              <td>3種類 6点</td>
+              <td id="order-info-item-count"></td>
             </tr>
             <tr>
               <th>合計金額</th>
-              <td>¥11,430 (税込)</td>
+              <td id="order-info-total-amount"></td>
             </tr>
             <tr>
               <th>準備状況</th>
-              <td><span class="badge badge-success">準備完了</span></td>
+              <td id="order-info-prep-status"></td>
             </tr>
             <tr>
               <th>準備完了時間</th>
-              <td>2025/05/30 12:12</td>
+              <td id="order-info-prep-completion-time"></td>
             </tr>
           </table>
         </div>
@@ -95,7 +95,7 @@
       
       <div class="alert alert-warning">
         <p><strong>質問1:</strong> お客様のお名前を教えてください。</p>
-        <p><strong>正解:</strong> 山田 太郎</p>
+        <p><strong>正解:</strong> <span id="verification-q1-answer">...</span></p>
         <div class="form-group">
           <label for="name-check">確認結果</label>
           <select id="name-check" class="form-control">
@@ -108,7 +108,7 @@
       
       <div class="alert alert-warning">
         <p><strong>質問2:</strong> ご注文いただいた「ツアータオル」は何点ですか？</p>
-        <p><strong>正解:</strong> 2点</p>
+        <p><strong>正解:</strong> <span id="verification-q2-answer">...</span></p>
         <div class="form-group">
           <label for="item-check">確認結果</label>
           <select id="item-check" class="form-control">
@@ -137,57 +137,23 @@
             <th style="width: 120px;">備考</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>
-              <img src="../images/product1.jpg" alt="ライブロゴTシャツ" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
-            </td>
-            <td>
-              <h4 style="margin: 0 0 5px 0;">ライブロゴTシャツ</h4>
-              <p style="margin: 0; font-size: 14px; color: #666;">サイズ: M</p>
-            </td>
-            <td>1</td>
-            <td>¥3,500</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>
-              <img src="../images/product2.jpg" alt="ツアータオル" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
-            </td>
-            <td>
-              <h4 style="margin: 0 0 5px 0;">ツアータオル</h4>
-            </td>
-            <td>2</td>
-            <td>¥4,000</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>
-              <img src="../images/product3.jpg" alt="アクリルキーホルダー（別デザイン）" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
-            </td>
-            <td>
-              <h4 style="margin: 0 0 5px 0;">アクリルキーホルダー（別デザイン）</h4>
-              <p style="margin: 0; font-size: 14px; color: #666;">※在庫切れのため代替品</p>
-            </td>
-            <td>3</td>
-            <td>¥3,600</td>
-            <td><span class="badge badge-warning">代替品</span></td>
-          </tr>
+        <tbody id="order-items-tbody">
+          <!-- Static content removed, will be populated by JS -->
         </tbody>
         <tfoot>
           <tr>
             <td colspan="3" style="text-align: right;"><strong>小計</strong></td>
-            <td><strong>¥11,100</strong></td>
+            <td id="order-items-subtotal"><strong>...</strong></td>
             <td></td>
           </tr>
           <tr>
             <td colspan="3" style="text-align: right;">システム利用料</td>
-            <td>¥330</td>
+            <td id="order-items-system-fee">...</td>
             <td></td>
           </tr>
           <tr>
             <td colspan="3" style="text-align: right;"><strong>合計</strong></td>
-            <td><strong>¥11,430</strong></td>
+            <td id="order-items-total"><strong>...</strong></td>
             <td></td>
           </tr>
         </tfoot>
@@ -197,7 +163,7 @@
     <div class="card" style="margin-top: 20px;">
       <h3>ピッカーからの引き渡し備考</h3>
       <div class="alert alert-info">
-        <p>アクリルキーホルダーは在庫切れのため、別デザインに変更しています。お客様への説明をお願いします。</p>
+        <p id="picker-handover-notes">...</p>
       </div>
       
       <div class="form-group">
@@ -208,12 +174,13 @@
     
     <div style="margin-top: 30px; text-align: center;">
       <a href="dashboard.html" class="btn" style="margin-right: 10px;">キャンセル</a>
-      <a href="complete.html?id=12345" class="btn btn-success" style="padding: 15px 30px; font-size: 16px;">受け渡し完了</a>
+      <button id="handover-complete-button" class="btn btn-success" style="padding: 15px 30px; font-size: 16px;">受け渡し完了</button>
     </div>
   </div>
   
   <div class="footer">
     <p>&copy; 2025 BOPIS System</p>
   </div>
+  <script type="module" src="../../frontend/js/pages/counter/verify-page.js"></script>
 </body>
 </html>

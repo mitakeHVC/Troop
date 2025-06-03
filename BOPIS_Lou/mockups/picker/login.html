@@ -21,7 +21,7 @@
         </svg>
       </div>
       
-      <form>
+      <form id="picker-login-form">
         <div class="form-group">
           <label for="staff-id">スタッフID</label>
           <input type="text" id="staff-id" class="form-control" required>
@@ -45,6 +45,7 @@
             <label for="remember" style="display: inline;">ログイン情報を記憶する</label>
           </div>
         </div>
+        <p id="login-error" style="color: var(--danger-color); margin-top: 10px; min-height: 1.2em;"></p>
         <div style="margin-top: 20px;">
           <button type="submit" class="btn btn-primary" style="width: 100%;">ログイン</button>
         </div>
@@ -60,5 +61,6 @@
   <div class="footer">
     <p>&copy; 2025 BOPIS System</p>
   </div>
+  <script type="module" src="../../frontend/js/pages/picker/login-page.js"></script>
 </body>
 </html>

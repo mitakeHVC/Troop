@@ -4,6 +4,49 @@ import { apiRequest } from '../../api.js';
 import { requireAuth, getAccessToken, logout } from '../../auth.js';
 import { decodeJWT } from '../../utils.js';
 
+async function loadDashboardStats(tenantIdForStats, userRoleForStats, todayOrdersCountEl, readyOrdersCountEl, completedOrdersCountEl, totalSalesEl) {
+    if (todayOrdersCountEl) todayOrdersCountEl.textContent = '...';
+    if (readyOrdersCountEl) readyOrdersCountEl.textContent = '...';
+    if (completedOrdersCountEl) completedOrdersCountEl.textContent = '...';
+    if (totalSalesEl) totalSalesEl.textContent = '...';
+
+    if (!tenantIdForStats && userRoleForStats === 'admin') {
+        // Admin needs a tenantId to fetch specific stats normally
+        // Or the API /admin/stats must handle admin without tenant_id by using their assigned tenant
+        console.warn("Admin user may need tenantId for specific stats or API needs to infer it.");
+        // Display N/A or specific message if stats cannot be loaded for tenant admin without ID
+        if (todayOrdersCountEl) todayOrdersCountEl.textContent = 'N/A';
+        if (readyOrdersCountEl) readyOrdersCountEl.textContent = 'N/A';
+        if (completedOrdersCountEl) completedOrdersCountEl.textContent = 'N/A';
+        if (totalSalesEl) totalSalesEl.textContent = '¥N/A';
+        return;
+    }
+
+    try {
+        let statsEndpoint = '/admin/stats'; // General endpoint for super_admin
+        if (tenantIdForStats && userRoleForStats === 'admin') {
+            statsEndpoint = `/admin/stats?tenant_id=${tenantIdForStats}`; // Tenant-specific for admin
+        }
+        // For super_admin, the API might aggregate across all tenants or require no tenant_id param.
+        // The current logic assumes /admin/stats handles both cases based on presence/absence of tenant_id or user role.
+
+        const statsData = await apiRequest(statsEndpoint, 'GET', null, true);
+
+        if (statsData) {
+            if (todayOrdersCountEl) todayOrdersCountEl.textContent = statsData.today_orders_count !== undefined ? statsData.today_orders_count : 'N/A';
+            if (readyOrdersCountEl) readyOrdersCountEl.textContent = statsData.ready_orders_count !== undefined ? statsData.ready_orders_count : 'N/A';
+            if (completedOrdersCountEl) completedOrdersCountEl.textContent = statsData.completed_orders_count !== undefined ? statsData.completed_orders_count : 'N/A';
+            if (totalSalesEl) totalSalesEl.textContent = statsData.total_sales_today !== undefined ? `¥${Number(statsData.total_sales_today).toLocaleString()}` : '¥N/A';
+        }
+    } catch (error) {
+        console.error("Failed to load dashboard stats:", error);
+        if (todayOrdersCountEl) todayOrdersCountEl.textContent = 'Error';
+        if (readyOrdersCountEl) readyOrdersCountEl.textContent = 'Error';
+        if (completedOrdersCountEl) completedOrdersCountEl.textContent = 'Error';
+        if (totalSalesEl) totalSalesEl.textContent = '¥Error';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     if (!requireAuth(['admin', 'super_admin'], 'login.html')) {
         return;
@@ -74,7 +117,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 <td>${itemQuantity}点</td>
                                 <td>&yen;${Number(order.total_amount).toLocaleString()}</td>
                                 <td><span class="badge badge-primary">${order.status}</span></td>
-                                <td><a href="#" class="btn btn-sm btn-outline" data-order-id="${order.id}">詳細</a></td>
+                                <td><a href="order-view.html?orderId=${order.id}" class="btn btn-sm btn-outline">詳細</a></td>
                             </tr>
                         `;
                     });
@@ -116,12 +159,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    if (todayOrdersCountEl) todayOrdersCountEl.textContent = "N/A";
-    if (readyOrdersCountEl) readyOrdersCountEl.textContent = "N/A";
-    if (completedOrdersCountEl) completedOrdersCountEl.textContent = "N/A";
-    if (totalSalesEl) totalSalesEl.textContent = "N/A";
-    // Correcting the placeholder for sales if it's also a monetary value
-    if (totalSalesEl && totalSalesEl.textContent === "N/A") {
-         // totalSalesEl.innerHTML = "&yen;N/A"; // Or keep as N/A if not monetary
     }
+
+    // Load summary stats
+    await loadDashboardStats(tenantId, userRole, todayOrdersCountEl, readyOrdersCountEl, completedOrdersCountEl, totalSalesEl);
 });
