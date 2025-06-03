@@ -10,11 +10,11 @@
   <div class="header">
     <h1>BOPIS - 受付担当専用</h1>
     <div>
-      <span style="margin-right: 15px;">ようこそ、鈴木受付様</span>
-      <span style="margin-right: 15px;">テナント: 音楽ライブイベントA</span>
-      <span style="margin-right: 15px;">担当レーン: レーン2</span>
+      <span id="counter-name-display-header" style="margin-right: 15px;">ようこそ、受付担当者様</span>
+      <span id="counter-tenant-display-header" style="margin-right: 15px;">テナント: N/A</span>
+      <span id="counter-lane-display-header" style="margin-right: 15px;">担当レーン: N/A</span>
       <a href="dashboard.html" class="btn" style="margin-right: 10px;">ダッシュボード</a>
-      <a href="login.html" class="btn">ログアウト</a>
+      <a href="#" id="counter-logout-button-header" class="btn">ログアウト</a>
     </div>
   </div>
   
@@ -28,7 +28,7 @@
         <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
       </svg>
       <h2 style="margin-top: 0;">受け渡し完了</h2>
-      <p style="font-size: 18px;">注文 ORD-20250530-12345 の商品受け渡しが完了しました。</p>
+      <p id="order-id-completion-message" style="font-size: 18px;">注文 ... の商品受け渡しが完了しました。</p>
       <p>お客様に商品をお渡ししました。</p>
     </div>
     
@@ -39,23 +39,23 @@
           <table class="table">
             <tr>
               <th style="width: 30%;">注文番号</th>
-              <td>ORD-20250530-12345</td>
+              <td id="handover-info-order-id"></td>
             </tr>
             <tr>
               <th>お客様名</th>
-              <td>山田 太郎</td>
+              <td id="handover-info-customer-name"></td>
             </tr>
             <tr>
               <th>受取時間枠</th>
-              <td>2025/06/15 13:00-14:00</td>
+              <td id="handover-info-pickup-slot"></td>
             </tr>
             <tr>
               <th>商品点数</th>
-              <td>3種類 6点</td>
+              <td id="handover-info-item-count"></td>
             </tr>
             <tr>
               <th>合計金額</th>
-              <td>¥11,430 (税込)</td>
+              <td id="handover-info-total-amount"></td>
             </tr>
           </table>
         </div>
@@ -64,23 +64,23 @@
           <table class="table">
             <tr>
               <th style="width: 30%;">ステータス</th>
-              <td><span class="badge badge-success">受け渡し完了</span></td>
+              <td id="handover-info-status"></td>
             </tr>
             <tr>
               <th>準備完了時間</th>
-              <td>2025/05/30 12:12</td>
+              <td id="handover-info-prep-time"></td>
             </tr>
             <tr>
               <th>本人確認時間</th>
-              <td>2025/05/30 12:15</td>
+              <td id="handover-info-verify-time"></td>
             </tr>
             <tr>
               <th>受け渡し完了時間</th>
-              <td>2025/05/30 12:17</td>
+              <td id="handover-info-completion-time"></td>
             </tr>
             <tr>
               <th>処理時間</th>
-              <td>2分</td>
+              <td id="handover-info-processing-duration"></td>
             </tr>
           </table>
         </div>
@@ -98,39 +98,8 @@
             <th style="width: 120px;">備考</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>
-              <img src="../images/product1.jpg" alt="ライブロゴTシャツ" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
-            </td>
-            <td>
-              <h4 style="margin: 0 0 5px 0;">ライブロゴTシャツ</h4>
-              <p style="margin: 0; font-size: 14px; color: #666;">サイズ: M</p>
-            </td>
-            <td>1</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>
-              <img src="../images/product2.jpg" alt="ツアータオル" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
-            </td>
-            <td>
-              <h4 style="margin: 0 0 5px 0;">ツアータオル</h4>
-            </td>
-            <td>2</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>
-              <img src="../images/product3.jpg" alt="アクリルキーホルダー（別デザイン）" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
-            </td>
-            <td>
-              <h4 style="margin: 0 0 5px 0;">アクリルキーホルダー（別デザイン）</h4>
-              <p style="margin: 0; font-size: 14px; color: #666;">※在庫切れのため代替品</p>
-            </td>
-            <td>3</td>
-            <td><span class="badge badge-warning">代替品</span></td>
-          </tr>
+        <tbody id="completed-items-tbody">
+          <!-- Static content removed, will be populated by JS -->
         </tbody>
       </table>
     </div>
@@ -165,7 +134,7 @@
     
     <div class="card" style="margin-top: 20px;">
       <h3>次のお客様</h3>
-      <p>レーン2には、あと2件の準備完了注文があります。</p>
+      <p id="next-customers-message">レーン...には、あと...件の準備完了注文があります。</p>
       <table class="table">
         <thead>
           <tr>
@@ -176,25 +145,8 @@
             <th>操作</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>ORD-20250530-67890</td>
-            <td>13:00-14:00</td>
-            <td>5種類 8点</td>
-            <td>12:10</td>
-            <td>
-              <a href="verify.html?id=67890" class="btn btn-primary" style="padding: 5px 10px;">受け取り処理</a>
-            </td>
-          </tr>
-          <tr>
-            <td>ORD-20250530-24680</td>
-            <td>13:00-14:00</td>
-            <td>2種類 2点</td>
-            <td>12:05</td>
-            <td>
-              <a href="verify.html?id=24680" class="btn btn-primary" style="padding: 5px 10px;">受け取り処理</a>
-            </td>
-          </tr>
+        <tbody id="next-customers-tbody">
+          <!-- Static content removed, will be populated by JS -->
         </tbody>
       </table>
     </div>
@@ -207,5 +159,6 @@
   <div class="footer">
     <p>&copy; 2025 BOPIS System</p>
   </div>
+  <script type="module" src="../../frontend/js/pages/counter/complete-page.js"></script>
 </body>
 </html>

@@ -10,10 +10,10 @@
   <div class="header">
     <h1>BOPIS - ピッカー専用</h1>
     <div>
-      <span style="margin-right: 15px;">ようこそ、佐藤ピッカー様</span>
-      <span style="margin-right: 15px;">テナント: 音楽ライブイベントA</span>
+      <span id="picker-name-display-header" style="margin-right: 15px;">ピッカー名</span>
+      <span id="picker-tenant-display-header" style="margin-right: 15px;">テナント名</span>
       <a href="dashboard.html" class="btn" style="margin-right: 10px;">ダッシュボード</a>
-      <a href="login.html" class="btn">ログアウト</a>
+      <a href="#" id="picker-logout-button-header" class="btn">ログアウト</a>
     </div>
   </div>
   
@@ -27,7 +27,7 @@
         <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
       </svg>
       <h2 style="margin-top: 0;">準備完了</h2>
-      <p style="font-size: 18px;">注文 ORD-20250530-12345 の商品準備が完了しました。</p>
+      <p id="order-id-confirmation-message" style="font-size: 18px;">注文 ... の商品準備が完了しました。</p>
       <p>受付担当に通知が送信されました。</p>
     </div>
     
@@ -38,19 +38,19 @@
           <table class="table">
             <tr>
               <th style="width: 30%;">注文番号</th>
-              <td>ORD-20250530-12345</td>
+              <td id="order-summary-id"></td>
             </tr>
             <tr>
               <th>受取時間枠</th>
-              <td>2025/06/15 13:00-14:00</td>
+              <td id="order-summary-pickup-slot"></td>
             </tr>
             <tr>
               <th>商品点数</th>
-              <td>3種類 6点</td>
+              <td id="order-summary-item-count"></td>
             </tr>
             <tr>
               <th>合計金額</th>
-              <td>¥11,430 (税込)</td>
+              <td id="order-summary-total-amount"></td>
             </tr>
           </table>
         </div>
@@ -59,19 +59,19 @@
           <table class="table">
             <tr>
               <th style="width: 30%;">ステータス</th>
-              <td><span class="badge badge-success">準備完了</span></td>
+              <td id="order-summary-status"></td>
             </tr>
             <tr>
               <th>処理開始時間</th>
-              <td>2025/05/30 12:05</td>
+              <td id="order-summary-start-time"></td>
             </tr>
             <tr>
               <th>処理完了時間</th>
-              <td>2025/05/30 12:12</td>
+              <td id="order-summary-completion-time"></td>
             </tr>
             <tr>
               <th>処理時間</th>
-              <td>7分</td>
+              <td id="order-summary-processing-time"></td>
             </tr>
           </table>
         </div>
@@ -89,39 +89,8 @@
             <th style="width: 120px;">ステータス</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>
-              <img src="../images/product1.jpg" alt="ライブロゴTシャツ" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
-            </td>
-            <td>
-              <h4 style="margin: 0 0 5px 0;">ライブロゴTシャツ</h4>
-              <p style="margin: 0; font-size: 14px; color: #666;">サイズ: M</p>
-            </td>
-            <td>1</td>
-            <td><span class="badge badge-success">ピッキング済</span></td>
-          </tr>
-          <tr>
-            <td>
-              <img src="../images/product2.jpg" alt="ツアータオル" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
-            </td>
-            <td>
-              <h4 style="margin: 0 0 5px 0;">ツアータオル</h4>
-            </td>
-            <td>2</td>
-            <td><span class="badge badge-success">ピッキング済</span></td>
-          </tr>
-          <tr>
-            <td>
-              <img src="../images/product3.jpg" alt="アクリルキーホルダー（別デザイン）" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
-            </td>
-            <td>
-              <h4 style="margin: 0 0 5px 0;">アクリルキーホルダー（別デザイン）</h4>
-              <p style="margin: 0; font-size: 14px; color: #666;">※在庫切れのため代替品</p>
-            </td>
-            <td>3</td>
-            <td><span class="badge badge-warning">代替品</span></td>
-          </tr>
+        <tbody id="prepared-items-tbody">
+          <!-- Static content removed, will be populated by JS -->
         </tbody>
       </table>
     </div>
@@ -133,27 +102,27 @@
           <table class="table">
             <tr>
               <th style="width: 30%;">梱包タイプ</th>
-              <td>紙袋 (中)</td>
+              <td id="packaging-type"></td>
             </tr>
             <tr>
               <th>梱包備考</th>
-              <td>Tシャツは折り畳まずに梱包</td>
+              <td id="packaging-notes"></td>
             </tr>
             <tr>
               <th>割り当てレーン</th>
-              <td>レーン2</td>
+              <td id="packaging-assigned-lane"></td>
             </tr>
           </table>
         </div>
         
         <div class="col" style="flex: 1;">
           <div style="border: 2px dashed #ddd; padding: 15px; text-align: center;">
-            <h3 style="margin-top: 0;">ORD-20250530-12345</h3>
-            <p>受取時間枠: 2025/06/15 13:00-14:00</p>
-            <p>レーン: 2</p>
-            <p>商品点数: 3種類 6点</p>
-            <p>ピッカー: 佐藤</p>
-            <button class="btn">ラベル再印刷</button>
+            <h3 id="label-order-id" style="margin-top: 0;">ORD-ID</h3>
+            <p id="label-pickup-slot">受取時間枠: ...</p>
+            <p id="label-lane">レーン: ...</p>
+            <p id="label-item-count">商品点数: ...</p>
+            <p id="label-picker-name">ピッカー: ...</p>
+            <button class="btn">ラベル再印刷</button> <!-- This button might need an ID for JS interaction later -->
           </div>
         </div>
       </div>
@@ -185,5 +154,6 @@
   <div class="footer">
     <p>&copy; 2025 BOPIS System</p>
   </div>
+  <script type="module" src="../../frontend/js/pages/picker/complete-page.js"></script>
 </body>
 </html>
