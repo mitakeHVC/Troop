@@ -91,7 +91,7 @@ def create_timeslot(db: Session, timeslot_create_data: PickupTimeSlotCreate, ten
     # TODO: Consider adding validation for overlapping time slots for the same tenant.
 
     db_timeslot = PickupTimeSlot(
-        **timeslot_create_data.dict(),
+        **timeslot_create_data.model_dump(),
         tenant_id=tenant_id,
         current_orders=0
     )
@@ -115,7 +115,7 @@ def update_timeslot(db: Session, db_timeslot: PickupTimeSlot, timeslot_update_da
     Returns:
         The updated PickupTimeSlot object.
     """
-    update_data = timeslot_update_data.dict(exclude_unset=True)
+    update_data = timeslot_update_data.model_dump(exclude_unset=True)
 
     current_start_time = db_timeslot.start_time
     current_end_time = db_timeslot.end_time

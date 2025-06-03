@@ -132,7 +132,7 @@ def update_staff_member_for_tenant( # Renamed for clarity
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Staff member not found or user is not staff.")
 
     # --- Begin Update Logic (similar to user_service.update_user but for specific fields by admin) ---
-    update_data_dict = staff_update_data.dict(exclude_unset=True)
+    update_data_dict = staff_update_data.model_dump(exclude_unset=True)
 
     if "username" in update_data_dict:
         existing_user = user_service.get_user_by_username(db, username=update_data_dict["username"])

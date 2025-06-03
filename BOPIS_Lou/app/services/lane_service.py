@@ -86,7 +86,7 @@ def update_lane_details(db: Session, db_lane: Lane, lane_update_data: LaneUpdate
     Returns:
         The updated Lane object.
     """
-    update_data = lane_update_data.dict(exclude_unset=True)
+    update_data = lane_update_data.model_dump(exclude_unset=True)
     for field, value in update_data.items():
         if field == "status" and value is not None:
             if isinstance(value, PydanticLaneStatusEnum):

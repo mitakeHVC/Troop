@@ -113,7 +113,79 @@ graph TD
 - [ ] 開発チームとのキックオフミーティングを実施
 - [ ] 技術検証を開始
 
+## 🧪 テスト実行方法
+
+### E2Eテスト実行
+
+BOPIS_Louプロジェクトでは、包括的なE2Eテストスイートが実装されています。
+
+#### 前提条件
+
+1. **Python環境**: Python 3.8以上
+2. **依存関係**: requirements.txtに記載されたパッケージ
+3. **データベース**: PostgreSQL（Docker環境推奨）
+4. **テストフレームワーク**: pytest + pytest-asyncio + httpx
+
+#### テスト実行手順
+
+```bash
+# 1. プロジェクトディレクトリに移動
+cd Troop/BOPIS_Lou
+
+# 2. 依存関係のインストール
+pip install -r requirements.txt
+
+# 3. E2Eテストの実行
+python -m pytest tests/e2e/ -v --tb=short
+
+# 4. 特定のテストファイルの実行
+python -m pytest tests/e2e/test_customer_bopis_workflow_api.py -v
+
+# 5. 全テストの実行（警告を抑制）
+python -m pytest tests/ -v --disable-warnings
+```
+
+#### テスト環境設定
+
+プロジェクトには`pytest.ini`が設定されており、以下の機能が有効化されています：
+
+- **asyncio_mode**: 自動（非同期テストの自動検出）
+- **警告フィルター**: 非推奨警告の抑制
+- **テストマーカー**: e2e, unit, integration テストの分類
+
+#### テスト構成
+
+| テストファイル | テスト数 | 内容 |
+|---------------|---------|------|
+| `test_customer_bopis_workflow_api.py` | 1 | 顧客BOPIS完全ワークフロー |
+| `test_super_admin_api.py` | 2 | スーパー管理者機能 |
+| `test_tenant_admin_api.py` | 2 | テナント管理者機能 |
+
+#### 最新テスト結果
+
+- **成功率**: 100% (5/5テスト成功)
+- **実行時間**: 約3.55秒
+- **最終実行日**: 2025年6月3日
+
+詳細なテスト結果は [`E2E_TEST_EXECUTION_REPORT.md`](./E2E_TEST_EXECUTION_REPORT.md) を参照してください。
+
+### Docker環境でのテスト
+
+```bash
+# Docker環境でのアプリケーション起動
+docker-compose up --build app
+
+# 別ターミナルでテスト実行
+python -m pytest tests/e2e/ -v
+```
+
 ## 📝 更新履歴
+
+- **2025/06/03**: v0.4
+  - E2Eテスト実行方法を追加
+  - テスト環境の要件と手順を明記
+  - pytest設定の最適化完了
+  - Pydantic v2、SQLAlchemy 2.0対応完了
 
 - **2025/05/27**: v0.3
   - 甲斐氏のヒアリングシートの情報を反映
@@ -128,4 +200,4 @@ graph TD
 
 ---
 
-**タグ**: #BOPIS #要件定義 #プロジェクト管理 #PdMテンプレート #2025-05
+**タグ**: #BOPIS #要件定義 #プロジェクト管理 #PdMテンプレート #E2Eテスト #2025-06
