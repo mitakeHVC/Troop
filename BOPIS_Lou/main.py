@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles # Added
 from app.api.endpoints import (
     auth_router,
     tenant_router,
@@ -34,6 +35,10 @@ app.include_router(picker_router.router, prefix="/picker", tags=["Picker Workflo
 app.include_router(counter_router.router, prefix="/counter", tags=["Counter Workflow"])
 app.include_router(pos_router.router, prefix="/pos", tags=["Point of Sale (POS)"])
 app.include_router(notification_router.router, prefix="/notifications", tags=["Notifications"])
+
+# Static files
+app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
+app.mount("/mockups", StaticFiles(directory="mockups", html=True), name="mockups")
 
 
 # Further routers will be included here later
